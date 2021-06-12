@@ -2,11 +2,11 @@
 
 class User extends CW_Model
 {
-    private $id;
     private $email;
     private $password;
     private $fullName;
     private $phone;
+    private $isAdmin;
     private $hasSystemAccess;
     private $isProvider;
     private $active;
@@ -65,19 +65,21 @@ class User extends CW_Model
                 password,
                 fullName,
                 phone,
+                isAdmin,
                 hasSystemAccess,
                 isProvider,
                 active,
                 createdAt,
                 updatedAt
             )
-            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?);
+            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?);
         SQL;
         $query = $this->db->query($sql, [
             $this->email,
             $this->password,
             $this->fullName,
             $this->phone,
+            $this->isAdmin,
             $this->hasSystemAccess,
             $this->isProvider,
             $this->active,
@@ -93,6 +95,7 @@ class User extends CW_Model
             UPDATE users u SET
                 fullName = ?,
                 phone = ?,
+                isAdmin = ?,
                 hasSystemAccess = ?,
                 isProvider = ?,
                 active = ?,
@@ -102,6 +105,7 @@ class User extends CW_Model
         $query = $this->db->query($sql, [
             $this->fullName,
             $this->phone,
+            $this->isAdmin,
             $this->hasSystemAccess,
             $this->isProvider,
             $this->active,
@@ -115,6 +119,7 @@ class User extends CW_Model
     {
         $this->fullName = trim($data->fullName);
         $this->phone = trim($data->phone);
+        $this->isAdmin = $data->isAdmin ? 1 : 0;
         $this->hasSystemAccess = $data->hasSystemAccess ? 1 : 0;
         $this->isProvider = $data->isProvider ? 1 : 0;
         $this->active = $data->active ? 1 : 0;
@@ -136,6 +141,7 @@ class User extends CW_Model
         $response->email = $data->email;
         $response->fullName = $data->fullName;
         $response->phone = $data->phone;
+        $response->isAdmin = $data->isAdmin;
         $response->hasSystemAccess = $data->hasSystemAccess;
         $response->isProvider = $data->isProvider;
         $response->active = $data->active;

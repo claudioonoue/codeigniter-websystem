@@ -14,6 +14,7 @@ CREATE TABLE users (
     password VARCHAR(300) NOT NULL,
     fullName VARCHAR(50) NOT NULL,
     phone VARCHAR(20),
+    isAdmin BOOLEAN DEFAULT FALSE,
     hasSystemAccess BOOLEAN DEFAULT TRUE,
     isProvider BOOLEAN DEFAULT FALSE,
     active BOOLEAN DEFAULT TRUE,

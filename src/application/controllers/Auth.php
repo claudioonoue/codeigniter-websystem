@@ -32,6 +32,7 @@ class Auth extends CI_Controller
                 $newAdminUser->password = '123456';
                 $newAdminUser->fullName = 'Administrador';
                 $newAdminUser->phone = '912345678';
+                $newAdminUser->isAdmin = true;
                 $newAdminUser->hasSystemAccess = true;
                 $newAdminUser->isProvider = false;
                 $newAdminUser->active = true;
@@ -58,6 +59,7 @@ class Auth extends CI_Controller
                 'id' => $user->id,
                 'email' => $user->email,
                 'fullName' => $user->fullName,
+                'isAdmin' => $user->isAdmin,
             ]);
 
             redirect('/');
