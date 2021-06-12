@@ -39,7 +39,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
-                        <i class="fas fa-th-large"></i>
+                        <i class="fas fa-cogs"></i>
                     </a>
                 </li>
             </ul>
@@ -49,8 +49,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <!-- Main Sidebar Container -->
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
-            <a href="index3.html" class="brand-link">
-                <img src="dist/img/AdminLTELogo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+            <a href="/" class="brand-link">
+                <img src="dist/img/codeigniter_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">CodeIgniter 3 WS</span>
             </a>
 
@@ -59,10 +59,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                        <img src="dist/img/user_logo.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block">Alexander Pierce</a>
+                        <a href="#" class="d-block"><?= $this->session->userdata('fullName') ?></a>
                     </div>
                 </div>
 
@@ -83,14 +83,16 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <li class="nav-item">
-                            <a href="/user" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p>
-                                    Simple Link
-                                </p>
-                            </a>
-                        </li>
+                        <?php if ($this->session->userdata('isAdmin')) : ?>
+                            <li class="nav-item">
+                                <a href="/user" class="nav-link">
+                                    <i class="nav-icon fas fa-users-cog"></i>
+                                    <p>
+                                        Usuários
+                                    </p>
+                                </a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -100,24 +102,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
         <!-- Content Wrapper. Contains page content -->
         <div class="content-wrapper">
-            <!-- Content Header (Page header) -->
-            <div class="content-header">
-                <div class="container-fluid">
-                    <div class="row mb-2">
-                        <div class="col-sm-6">
-                            <h1 class="m-0">Starter Page</h1>
-                        </div><!-- /.col -->
-                        <div class="col-sm-6">
-                            <ol class="breadcrumb float-sm-right">
-                                <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Starter Page</li>
-                            </ol>
-                        </div><!-- /.col -->
-                    </div><!-- /.row -->
-                </div><!-- /.container-fluid -->
-            </div>
-            <!-- /.content-header -->
-
             <!-- Main content -->
             <div class="content">
                 <div class="container-fluid">
@@ -132,8 +116,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <aside class="control-sidebar control-sidebar-dark">
             <!-- Control sidebar content goes here -->
             <div class="p-3">
-                <h5>Title</h5>
-                <p>Sidebar content</p>
+                <h5>Configurações</h5>
+                <a href="/auth/logout"><button type="button" class="btn btn-block btn-warning">Sair</button></a>
             </div>
         </aside>
         <!-- /.control-sidebar -->

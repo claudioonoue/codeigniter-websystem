@@ -4,7 +4,7 @@ class User extends CW_Controller
 {
     public function index()
     {
-        echo 'Index';
+        $this->loadView('User/index', []);
     }
 
     public function create()
