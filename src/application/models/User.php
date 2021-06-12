@@ -22,7 +22,7 @@ class User extends CW_Model
         $query = $this->db->query($sql);
         $formatedResults = [];
 
-        foreach ($query->result_array() as $row) {
+        foreach ($query->result() as $row) {
             array_push($formatedResults, $this->toResponse($row));
         }
 
@@ -38,9 +38,23 @@ class User extends CW_Model
         SQL;
         $query = $this->db->query($sql, [$id]);
 
-        $row = $query->row_array();
+        $row = $query->row();
 
-        return isset($row) ? $this->toResponse($row) : [];
+        return $row;
+    }
+
+    public function fetchByEmail($email)
+    {
+        $sql = <<<SQL
+            SELECT * 
+            FROM users u
+            WHERE u.email = ?;
+        SQL;
+        $query = $this->db->query($sql, [$email]);
+
+        $row = $query->row();
+
+        return $row;
     }
 
     public function insert()
@@ -97,17 +111,17 @@ class User extends CW_Model
         return $query;
     }
 
-    public function prepare($operation, $fields)
+    public function prepare($operation, $data)
     {
-        $this->fullName = trim($fields['fullName']);
-        $this->phone = trim($fields['phone']);
-        $this->hasSystemAccess = $fields['hasSystemAccess'] ? 1 : 0;
-        $this->isProvider = $fields['isProvider'] ? 1 : 0;
-        $this->active = $fields['active'] ? 1 : 0;
+        $this->fullName = trim($data->fullName);
+        $this->phone = trim($data->phone);
+        $this->hasSystemAccess = $data->hasSystemAccess ? 1 : 0;
+        $this->isProvider = $data->isProvider ? 1 : 0;
+        $this->active = $data->active ? 1 : 0;
         $now = new DateTime();
         if ($operation === 'insert') {
-            $this->email = trim($fields['email']);
-            $this->password = password_hash($fields['password'], PASSWORD_BCRYPT);
+            $this->email = trim($data->email);
+            $this->password = password_hash($data->password, PASSWORD_BCRYPT);
             $this->createdAt = $now->format(DATE_ATOM);
             $this->updatedAt = $now->format(DATE_ATOM);
         } elseif ($operation === 'update') {
@@ -117,16 +131,17 @@ class User extends CW_Model
 
     public function toResponse($data)
     {
-        return [
-            'id' => $data['id'],
-            'email' => $data['email'],
-            'fullName' => $data['fullName'],
-            'phone' => $data['phone'],
-            'hasSystemAccess' => $data['hasSystemAccess'],
-            'isProvider' => $data['isProvider'],
-            'active' => $data['active'],
-            'createdAt' => $data['createdAt'],
-            'updatedAt' => $data['updatedAt']
-        ];
+        $response = new stdClass();
+        $response->id = $data->id;
+        $response->email = $data->email;
+        $response->fullName = $data->fullName;
+        $response->phone = $data->phone;
+        $response->hasSystemAccess = $data->hasSystemAccess;
+        $response->isProvider = $data->isProvider;
+        $response->active = $data->active;
+        $response->createdAt = $data->createdAt;
+        $response->updatedAt = $data->updatedAt;
+
+        return $response;
     }
 }
