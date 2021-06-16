@@ -1,5 +1,5 @@
 <?php
-defined('BASEPATH') OR exit('No direct script access allowed');
+defined('BASEPATH') or exit('No direct script access allowed');
 
 /*
 |--------------------------------------------------------------------------
@@ -52,7 +52,7 @@ $config['index_page'] = '';
 |
 | WARNING: If you set this to 'PATH_INFO', URIs will always be URL-decoded!
 */
-$config['uri_protocol']	= 'REQUEST_URI';
+$config['uri_protocol']    = 'REQUEST_URI';
 
 /*
 |--------------------------------------------------------------------------
@@ -76,7 +76,7 @@ $config['url_suffix'] = '';
 | than english.
 |
 */
-$config['language']	= 'english';
+$config['language']    = 'english';
 
 /*
 |--------------------------------------------------------------------------
@@ -400,11 +400,11 @@ $config['sess_regenerate_destroy'] = FALSE;
 |       'cookie_httponly') will also affect sessions.
 |
 */
-$config['cookie_prefix']	= '';
-$config['cookie_domain']	= '';
-$config['cookie_path']		= '/';
-$config['cookie_secure']	= FALSE;
-$config['cookie_httponly'] 	= FALSE;
+$config['cookie_prefix']    = '';
+$config['cookie_domain']    = '';
+$config['cookie_path']        = '/';
+$config['cookie_secure']    = FALSE;
+$config['cookie_httponly']     = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -521,3 +521,32 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+/*
+| -------------------------------------------------------------------------
+| Native spl_autoload_register() - by Kenneth Vogt
+| -------------------------------------------------------------------------
+|
+| Here is an updated version of Phil Sturgeon’s code:
+|
+| Thanks to Phil Sturgeon Kenneth Vogt and InsiteFX.
+|
+| NOTE:
+| Requires PHP 5.3.+
+| As of CI 3.0 Dev - The constant EXT has been removed modified
+| to use '.php' now instead of EXT.
+| should work for all version of CI and PHP 5.3
+|
+| Place at the bottom of your ./application/config/config.php file.
+| -------------------------------------------------------------------------
+*/
+
+spl_autoload_register(function ($class) {
+    if (strpos($class, 'CI_') !== 0) {
+        if (file_exists($file = APPPATH . 'core/' . $class . '.php')) {
+            include $file;
+        } elseif (file_exists($file = APPPATH . 'libraries/' . $class . '.php')) {
+            include $file;
+        }
+    }
+});

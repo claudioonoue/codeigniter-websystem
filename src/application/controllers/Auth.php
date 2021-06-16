@@ -9,7 +9,7 @@ class Auth extends CI_Controller
         $this->load->library(['form_validation', 'session']);
         $this->load->helper(['form', 'url']);
 
-        $this->load->model('user');
+        $this->load->model('user_model');
     }
 
     public function login()
@@ -26,7 +26,7 @@ class Auth extends CI_Controller
                 redirect('/auth/login');
             }
 
-            if (count($this->user->fetch()) === 0) {
+            if (count($this->user_model->fetch()) === 0) {
                 $newAdminUser = new stdClass();
                 $newAdminUser->email = 'admin@admin.com';
                 $newAdminUser->password = '123456';
@@ -36,14 +36,14 @@ class Auth extends CI_Controller
                 $newAdminUser->hasSystemAccess = true;
                 $newAdminUser->isProvider = false;
                 $newAdminUser->active = true;
-                $this->user->prepare('insert', $newAdminUser);
-                $this->user->insert();
+                $this->user_model->prepare('insert', $newAdminUser);
+                $this->user_model->insert();
             }
 
             $email = $this->input->post('email');
             $password = $this->input->post('password');
 
-            $user = $this->user->fetchByEmail($email);
+            $user = $this->user_model->fetchByEmail($email);
 
             if (!isset($user)) {
                 $this->session->set_flashdata('login_error', 'Email e/ou senha inválidos.');

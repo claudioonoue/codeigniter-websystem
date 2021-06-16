@@ -1,6 +1,6 @@
 <?php
 
-class User extends CW_Model
+class User_Model extends CW_Model
 {
     private $email;
     private $password;
@@ -16,8 +16,13 @@ class User extends CW_Model
     public function fetch()
     {
         $sql = <<<SQL
-            SELECT * 
-            FROM users u;
+            SELECT u.*, 
+            (
+                SELECT COUNT(a.id)
+                FROM addresses a
+                WHERE a.userId = u.id
+            ) AS `totalAddresses`
+            FROM users u
         SQL;
         $query = $this->db->query($sql);
         $formatedResults = [];
@@ -32,7 +37,12 @@ class User extends CW_Model
     public function fetchById($id)
     {
         $sql = <<<SQL
-            SELECT * 
+            SELECT u.*, 
+            (
+                SELECT COUNT(a.id)
+                FROM addresses a
+                WHERE a.userId = u.id
+            ) AS `totalAddresses`
             FROM users u
             WHERE u.id = ?;
         SQL;
@@ -93,6 +103,7 @@ class User extends CW_Model
     {
         $sql = <<<SQL
             UPDATE users u SET
+                password = ?,
                 fullName = ?,
                 phone = ?,
                 isAdmin = ?,
@@ -103,6 +114,7 @@ class User extends CW_Model
             WHERE u.id = ?;
         SQL;
         $query = $this->db->query($sql, [
+            $this->password,
             $this->fullName,
             $this->phone,
             $this->isAdmin,
@@ -130,6 +142,7 @@ class User extends CW_Model
             $this->createdAt = $now->format(DATE_ATOM);
             $this->updatedAt = $now->format(DATE_ATOM);
         } elseif ($operation === 'update') {
+            $this->password = isset($data->newPassword) ? password_hash($data->newPassword, PASSWORD_BCRYPT) : $data->password;
             $this->updatedAt = $now->format(DATE_ATOM);
         }
     }
@@ -147,6 +160,7 @@ class User extends CW_Model
         $response->active = $data->active;
         $response->createdAt = $data->createdAt;
         $response->updatedAt = $data->updatedAt;
+        $response->totalAddresses = $data->totalAddresses;
 
         return $response;
     }

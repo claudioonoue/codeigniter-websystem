@@ -13,9 +13,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+    <link rel="stylesheet" href="/plugins/fontawesome-free/css/all.min.css">
     <!-- Theme style -->
-    <link rel="stylesheet" href="dist/css/adminlte.min.css">
+    <link rel="stylesheet" href="/dist/css/adminlte.min.css">
+
+    <!-- jsGrid -->
+    <link rel="stylesheet" href="/plugins/jsgrid/jsgrid.min.css">
+    <link rel="stylesheet" href="/plugins/jsgrid/jsgrid-theme.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -50,7 +54,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <aside class="main-sidebar sidebar-dark-primary elevation-4">
             <!-- Brand Logo -->
             <a href="/" class="brand-link">
-                <img src="dist/img/codeigniter_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
+                <img src="/dist/img/codeigniter_logo.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
                 <span class="brand-text font-weight-light">CodeIgniter 3 WS</span>
             </a>
 
@@ -59,7 +63,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                 <!-- Sidebar user panel (optional) -->
                 <div class="user-panel mt-3 pb-3 mb-3 d-flex">
                     <div class="image">
-                        <img src="dist/img/user_logo.png" class="img-circle elevation-2" alt="User Image">
+                        <img src="/dist/img/user_logo.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
                         <a href="#" class="d-block"><?= $this->session->userdata('fullName') ?></a>
@@ -104,9 +108,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
         <div class="content-wrapper">
             <!-- Main content -->
             <div class="content">
-                <div class="container-fluid">
+                <div class="container-fluid pt-2">
                     <?php echo $contents; ?>
-                </div><!-- /.container-fluid -->
+                </div>
             </div>
             <!-- /.content -->
         </div>
@@ -121,27 +125,26 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </div>
         </aside>
         <!-- /.control-sidebar -->
-
-        <!-- Main Footer -->
-        <footer class="main-footer">
-            <!-- To the right -->
-            <div class="float-right d-none d-sm-inline">
-                Anything you want
-            </div>
-            <!-- Default to the left -->
-            <strong>Copyright &copy; 2014-2021 <a href="https://adminlte.io">AdminLTE.io</a>.</strong> All rights reserved.
-        </footer>
     </div>
     <!-- ./wrapper -->
 
     <!-- REQUIRED SCRIPTS -->
 
     <!-- jQuery -->
-    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="/plugins/jquery/jquery.min.js"></script>
     <!-- Bootstrap 4 -->
-    <script src="plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
     <!-- AdminLTE App -->
-    <script src="dist/js/adminlte.min.js"></script>
+    <script src="/dist/js/adminlte.min.js"></script>
+    <!-- jsGrid -->
+    <script src="/plugins/jsgrid/jsgrid.min.js"></script>
+    <!-- Custom JS -->
+    <script src="/assets/js/config/jsgrid.js"></script>
+    <?php if (isset($js)) : ?>
+        <?php foreach ($js as $file) : ?>
+            <script src="<?= $file ?>"></script>
+        <?php endforeach; ?>
+    <?php endif; ?>
 </body>
 
 </html>
