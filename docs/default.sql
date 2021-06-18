@@ -26,10 +26,11 @@ CREATE TABLE users (
 CREATE TABLE addresses (
 	id int NOT NULL AUTO_INCREMENT,
     userId INT NOT NULL,
+    addressOrdenation INT NOT NULL,
     zipCode VARCHAR(8) NOT NULL,
     address VARCHAR(100) NOT NULL,
     number VARCHAR(50) NOT NULL,
-    complement VARCHAR(200) NOT NULL,
+    complement VARCHAR(200),
     neighborhood VARCHAR(100) NOT NULL,
     city VARCHAR(100) NOT NULL,
     state VARCHAR(2) NOT NULL,

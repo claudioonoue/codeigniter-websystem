@@ -20,6 +20,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <!-- jsGrid -->
     <link rel="stylesheet" href="/plugins/jsgrid/jsgrid.min.css">
     <link rel="stylesheet" href="/plugins/jsgrid/jsgrid-theme.min.css">
+
+    <!-- JQ Validate -->
+    <link rel="stylesheet" href="/assets/css/config/jqvalidate.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -138,6 +141,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/dist/js/adminlte.min.js"></script>
     <!-- jsGrid -->
     <script src="/plugins/jsgrid/jsgrid.min.js"></script>
+    <!-- jquery-validation -->
+    <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <script src="/assets/js/config/jqvalidate.js"></script>
     <!-- Custom JS -->
     <script src="/assets/js/config/jsgrid.js"></script>
     <?php if (isset($js)) : ?>

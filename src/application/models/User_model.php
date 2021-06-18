@@ -164,4 +164,18 @@ class User_Model extends CW_Model
 
         return $response;
     }
+
+    public function cleanModel()
+    {
+        $this->email = NULL;
+        $this->password = NULL;
+        $this->fullName = NULL;
+        $this->phone = NULL;
+        $this->isAdmin = NULL;
+        $this->hasSystemAccess = NULL;
+        $this->isProvider = NULL;
+        $this->active = NULL;
+        $this->createdAt = NULL;
+        $this->updatedAt = NULL;
+    }
 }
