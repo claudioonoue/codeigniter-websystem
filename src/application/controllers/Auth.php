@@ -55,7 +55,7 @@ class Auth extends CI_Controller
                 redirect('/auth/login');
             }
 
-            if ($user->hasSystemAccess === '0' || $user->isProvider === '1') {
+            if ($user->active === '0' || $user->hasSystemAccess === '0' || $user->isProvider === '1') {
                 $this->session->set_flashdata('login_error', 'Usuário não autorizado.');
                 redirect('/auth/login');
             }
