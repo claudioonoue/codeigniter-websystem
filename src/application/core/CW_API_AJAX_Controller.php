@@ -13,4 +13,11 @@ class CW_API_AJAX_Controller extends CI_Controller
             redirect('/auth/login');
         }
     }
+
+    public function onlyAdmin()
+    {
+        if ($this->session->userdata('isAdmin') === '0') {
+            redirect('/');
+        }
+    }
 }

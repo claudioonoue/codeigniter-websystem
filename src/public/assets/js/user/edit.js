@@ -1,6 +1,6 @@
 $(document).ready(() => {
     validateCheckBoxes()
-    interceptFormSubmit()
+    jqValidate()
 })
 
 function validateCheckBoxes() {
@@ -17,14 +17,14 @@ function validateCheckBoxes() {
     })
 }
 
-var jqValidateConfig = {
-    invalidHandler: function (form) {
-        validateAddresses()
-    },
-    ignore: ''
-}
+function jqValidate() {
+    var jqValidateConfig = loadJQValidateDefaultConfig({
+        invalidHandler: function (form) {
+            validateAddresses()
+        },
+        ignore: ''
+    })
 
-function interceptFormSubmit() {
     $('form').validate(jqValidateConfig)
 }
 

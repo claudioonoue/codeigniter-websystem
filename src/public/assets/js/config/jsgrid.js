@@ -16,9 +16,9 @@ var JSGridDefaultConfig = {
     updateOnResize: true,
 }
 
-function loadJSGridDefaultConfig($customConfigs) {
+function loadJSGridDefaultConfig(customConfigs) {
     return {
         ...JSGridDefaultConfig,
-        ...$customConfigs,
+        ...customConfigs,
     }
 }

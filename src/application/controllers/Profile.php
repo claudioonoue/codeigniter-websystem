@@ -1,13 +1,11 @@
 <?php
 
-class User extends CW_Controller
+class Profile extends CW_Controller
 {
     public function __construct()
     {
         parent::__construct();
-        $this->onlyAdmin();
-
-        $this->JSFolder = '/assets/js/user/';
+        $this->JSFolder = '/assets/js/profile/';
 
         $this->load->model('user_model');
         $this->load->model('address_model');
@@ -15,69 +13,13 @@ class User extends CW_Controller
 
     public function index()
     {
-        $this->loadJs([
-            'index.js'
-        ]);
-        $this->loadView('User/index', ['title' => 'Usuários']);
-    }
-
-    public function create()
-    {
-        if ($this->input->method(true) === 'POST') {
-            $this->form_validation->set_rules('email', 'Email', 'required');
-            $this->form_validation->set_rules('password', 'Password', 'required');
-            $this->form_validation->set_rules('fullName', 'Fullname', 'required');
-            $this->form_validation->set_rules('phone', 'Phone', 'required');
-
-            if ($this->form_validation->run() === false) {
-                $this->session->set_flashdata('create_error', 'Verifique os campos obrigatórios.');
-                redirect('/user/create');
-            }
-
-            $email = $this->input->post('email');
-            $password = $this->input->post('password');
-            $fullName = $this->input->post('fullName');
-            $phone = $this->input->post('phone');
-            $isAdmin = $this->input->post('isAdmin');
-            $hasSystemAccess = $this->input->post('hasSystemAccess');
-            $isProvider = $this->input->post('isProvider');
-            $active = $this->input->post('active');
-
-            $usedEmail = $this->user_model->fetchByEmail($email);
-            if (isset($usedEmail)) {
-                $this->session->set_flashdata('create_error', 'Email em uso!');
-                redirect('/user/create');
-            }
-
-            $newUser = new stdClass();
-            $newUser->email = $email;
-            $newUser->password = $password;
-            $newUser->fullName = $fullName;
-            $newUser->phone = $phone;
-            $newUser->isAdmin = isset($isAdmin);
-            $newUser->hasSystemAccess = isset($hasSystemAccess);
-            $newUser->isProvider = isset($isProvider);
-            $newUser->active = isset($active);
-            $this->user_model->prepare('insert', $newUser);
-            $this->user_model->insert();
-
-            redirect('/user/index');
-        } else {
-            $this->loadJs([
-                'create.js'
-            ]);
-            $this->loadView('User/create', ['title' => 'Usuários']);
-        }
-    }
-
-    public function edit($id)
-    {
+        $id = $this->session->userdata('id');
         if (!isset($id) && $id === '') {
-            redirect('/user/index');
+            redirect('/');
         }
         $user = $this->user_model->fetchById($id);
         if (!isset($user)) {
-            redirect('/user/index');
+            redirect('/');
         }
         if ($this->input->method(true) === 'POST') {
             $this->form_validation->set_rules('fullName', 'Fullname', 'required');
@@ -85,7 +27,7 @@ class User extends CW_Controller
 
             if ($this->form_validation->run() === false) {
                 $this->session->set_flashdata('edit_error', 'Verifique os campos obrigatórios.');
-                redirect('/user/edit/' . $id);
+                redirect('/profile/index');
             }
 
             $password = $this->input->post('password');
@@ -100,12 +42,12 @@ class User extends CW_Controller
             if ($password !== '' && $newPassword !== '') {
                 if (!password_verify($password, $user->password)) {
                     $this->session->set_flashdata('edit_error', 'Senha antiga inválida.');
-                    redirect('/user/edit/' . $id);
+                    redirect('/profile/index');
                 }
 
                 if (password_verify($newPassword, $user->password)) {
                     $this->session->set_flashdata('edit_error', 'A nova senha não pode ser a mesma que a antiga.');
-                    redirect('/user/edit/' . $id);
+                    redirect('/profile/index');
                 }
             }
 
@@ -114,10 +56,10 @@ class User extends CW_Controller
             $newUserData->password = $user->password;
             $newUserData->fullName = $fullName;
             $newUserData->phone = $phone;
-            $newUserData->isAdmin = isset($isAdmin);
-            $newUserData->hasSystemAccess = isset($hasSystemAccess);
-            $newUserData->isProvider = isset($isProvider);
-            $newUserData->active = isset($active);
+            $newUserData->isAdmin = $user->isAdmin === '1' ? isset($isAdmin) : ($user->isAdmin === '1');
+            $newUserData->hasSystemAccess = $user->isAdmin === '1' ? isset($hasSystemAccess) : ($user->hasSystemAccess === '1');
+            $newUserData->isProvider = $user->isAdmin === '1' ? isset($isProvider) : ($user->isProvider === '1');
+            $newUserData->active = $user->isAdmin === '1' ? isset($active) : ($user->active === '1');
             $this->user_model->prepare('update', $newUserData);
             $this->user_model->update($id);
 
@@ -126,18 +68,18 @@ class User extends CW_Controller
                 $manipulateAddressesSuccess = $this->manipulateAddresses(intval($user->totalAddresses) === 0 ? 'insert' : 'update', $user->id, $neededAddresses);
                 if ($manipulateAddressesSuccess === false) {
                     $this->session->set_flashdata('edit_error', 'Verifique os campos de endereço obrigatórios.');
-                    redirect('/user/edit/' . $id);
+                    redirect('/profile/index');
                 }
             }
 
             $this->session->set_flashdata('edit_success', 'Dados editados com sucesso.');
-            redirect('/user/edit/' . $id);
+            redirect('/profile/index');
         } else {
             $addresses = $this->address_model->fetchByUserId($user->id);
             $this->loadJs([
-                'edit.js'
+                'index.js'
             ]);
-            $this->loadView('User/edit', ['user' => $user, 'addresses' => $addresses]);
+            $this->loadView('Profile/index', ['user' => $user, 'addresses' => $addresses]);
         }
     }
 

@@ -1,5 +1,6 @@
 $(document).ready(() => {
     validateCheckBoxes()
+    jqValidate()
 })
 
 function validateCheckBoxes() {
@@ -14,4 +15,10 @@ function validateCheckBoxes() {
     $('#formInpHasSystemAccess').change(() => {
         $('#formInpIsProvider').prop("checked", false);
     })
+}
+
+function jqValidate() {
+    var jqValidateConfig = loadJQValidateDefaultConfig()
+
+    $('form').validate(jqValidateConfig)
 }

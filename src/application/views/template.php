@@ -69,7 +69,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="/dist/img/user_logo.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="#" class="d-block"><?= $this->session->userdata('fullName') ?></a>
+                        <a href="/profile/index" class="d-block"><?= $this->session->userdata('fullName') ?></a>
                     </div>
                 </div>
 
@@ -90,7 +90,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-                        <?php if ($this->session->userdata('isAdmin')) : ?>
+                        <?php if ($this->session->userdata('isAdmin') === '1') : ?>
                             <li class="nav-item">
                                 <a href="/user" class="nav-link">
                                     <i class="nav-icon fas fa-users-cog"></i>
@@ -124,7 +124,8 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Control sidebar content goes here -->
             <div class="p-3">
                 <h5>Configurações</h5>
-                <a href="/auth/logout"><button type="button" class="btn btn-block btn-warning">Sair</button></a>
+                <a href="/profile/index"><button type="button" class="btn btn-block btn-info mb-2"><i class="nav-icon fas fa-user-cog"></i> Perfil</button></a>
+                <a href="/auth/logout"><button type="button" class="btn btn-block btn-warning mb-2"><i class="nav-icon fas fa-sign-out-alt"></i> Sair</button></a>
             </div>
         </aside>
         <!-- /.control-sidebar -->
@@ -143,9 +144,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/plugins/jsgrid/jsgrid.min.js"></script>
     <!-- jquery-validation -->
     <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
-    <script src="/assets/js/config/jqvalidate.js"></script>
     <!-- Custom JS -->
     <script src="/assets/js/config/jsgrid.js"></script>
+    <script src="/assets/js/config/jqvalidate.js"></script>
     <?php if (isset($js)) : ?>
         <?php foreach ($js as $file) : ?>
             <script src="<?= $file ?>"></script>

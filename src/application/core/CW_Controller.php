@@ -16,6 +16,13 @@ class CW_Controller extends CI_Controller
         }
     }
 
+    public function onlyAdmin()
+    {
+        if ($this->session->userdata('isAdmin') === '0') {
+            redirect('/');
+        }
+    }
+
     public function loadView($view, $data)
     {
         $this->template->load('template', $view, $data);
@@ -23,7 +30,7 @@ class CW_Controller extends CI_Controller
 
     public function loadJS($files)
     {
-        $files = array_map(function($item) {
+        $files = array_map(function ($item) {
             return $this->JSFolder . $item;
         }, $files);
         $this->template->set('js', $files);

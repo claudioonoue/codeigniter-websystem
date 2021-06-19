@@ -22,9 +22,31 @@ class User_Model extends CW_Model
                 FROM addresses a
                 WHERE a.userId = u.id
             ) AS `totalAddresses`
-            FROM users u
+            FROM users u;
         SQL;
         $query = $this->db->query($sql);
+        $formatedResults = [];
+
+        foreach ($query->result() as $row) {
+            array_push($formatedResults, $this->toResponse($row));
+        }
+
+        return $formatedResults;
+    }
+
+    public function fetchWithoutLoggedUser($id)
+    {
+        $sql = <<<SQL
+            SELECT u.*, 
+            (
+                SELECT COUNT(a.id)
+                FROM addresses a
+                WHERE a.userId = u.id
+            ) AS `totalAddresses`
+            FROM users u
+            WHERE u.id != ?;
+        SQL;
+        $query = $this->db->query($sql, [$id]);
         $formatedResults = [];
 
         foreach ($query->result() as $row) {
