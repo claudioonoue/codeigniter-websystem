@@ -100,6 +100,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </a>
                             </li>
                         <?php endif; ?>
+                        <li class="nav-item">
+                            <a href="/product" class="nav-link">
+                                <i class="nav-icon fas fa-box"></i>
+                                <p>
+                                    Produtos
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
