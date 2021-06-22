@@ -16,15 +16,15 @@ class User extends CW_API_AJAX_Controller
 
         $users = array_map(function ($user) {
             return $user;
-        }, $this->user_model->fetchWithoutLoggedUser($id));
+        }, $this->user_model->fetchWithoutLoggedUser($id, $this->limit, $this->offset));
 
-        $count = count($users);
+        $count = count($this->user_model->fetch());
 
         $data = [
             'data' => $users,
             'itemsCount' => $count,
         ];
 
-        $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($data));
+        $this->toJSON($data, 200);
     }
 }

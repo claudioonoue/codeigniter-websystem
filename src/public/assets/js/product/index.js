@@ -8,6 +8,7 @@ function loadData(filter) {
         url: '/api/ajax/product/list',
         type: 'GET',
         dataType: 'json',
+        data: filter,
     }).done(function (response) {
         d.resolve(response);
     });

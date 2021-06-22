@@ -24,6 +24,24 @@ class Product_Model extends CW_Model
         return $formatedResults;
     }
 
+    public function ajaxFetch($limit, $offset)
+    {
+        $sql = <<<SQL
+            SELECT *
+            FROM products p
+            LIMIT ?
+            OFFSET ?;
+        SQL;
+        $query = $this->db->query($sql, [$limit, $offset]);
+        $formatedResults = [];
+
+        foreach ($query->result() as $row) {
+            array_push($formatedResults, $this->toResponse($row));
+        }
+
+        return $formatedResults;
+    }
+
     public function fetchById($id)
     {
         $sql = <<<SQL

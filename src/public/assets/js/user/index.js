@@ -8,6 +8,7 @@ function loadData(filter) {
         url: '/api/ajax/user/list',
         type: 'GET',
         dataType: 'json',
+        data: filter,
     }).done(function (response) {
         d.resolve(response);
     });
@@ -80,7 +81,7 @@ function loadGrid() {
         controller: {
             loadData: loadData,
         },
-        rowClick: function(rc) {
+        rowClick: function (rc) {
             window.location.href = `/user/edit/${rc.item.id}`;
         }
     })

@@ -13,15 +13,15 @@ class Product extends CW_API_AJAX_Controller
     {
         $products = array_map(function ($product) {
             return $product;
-        }, $this->product_model->fetch());
+        }, $this->product_model->ajaxFetch($this->limit, $this->offset));
 
-        $count = count($products);
+        $count = count($this->product_model->fetch());
 
         $data = [
             'data' => $products,
             'itemsCount' => $count,
         ];
 
-        $this->output->set_status_header(200)->set_content_type('application/json')->set_output(json_encode($data));
+        $this->toJSON($data, 200);
     }
 }
