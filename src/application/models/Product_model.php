@@ -24,15 +24,22 @@ class Product_Model extends CW_Model
         return $formatedResults;
     }
 
-    public function ajaxFetch($limit, $offset)
+    public function ajaxFetch($name, $description, $limit, $offset)
     {
         $sql = <<<SQL
             SELECT *
             FROM products p
+            WHERE p.name LIKE ?
+            AND p.description LIKE ?
             LIMIT ?
             OFFSET ?;
         SQL;
-        $query = $this->db->query($sql, [$limit, $offset]);
+        $query = $this->db->query($sql, [
+            '%' . $name . '%',
+            '%' . $description . '%',
+            $limit,
+            $offset
+        ]);
         $formatedResults = [];
 
         foreach ($query->result() as $row) {

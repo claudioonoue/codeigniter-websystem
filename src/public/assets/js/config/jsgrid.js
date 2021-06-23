@@ -22,3 +22,41 @@ function loadJSGridDefaultConfig(customConfigs) {
         ...customConfigs,
     }
 }
+
+function loadJSGridDefaultFields(customFields) {
+    return [
+        ...customFields,
+        {
+            type: 'control',
+            editButton: false,
+            deleteButton: false,
+            headerTemplate: function () {
+                return '';
+            },
+            filterTemplate: function () {
+                var searchBtn = document.createElement('i');
+                searchBtn.className = 'fas fa-search';
+                searchBtn.style = 'cursor: pointer';
+
+                var clearFiltersBtn = document.createElement('i');
+                clearFiltersBtn.className = 'fas fa-times-circle';
+                clearFiltersBtn.style = 'cursor: pointer';
+
+                var div = document.createElement('div');
+                div.appendChild(searchBtn);
+                div.insertAdjacentHTML('beforeend', '&nbsp&nbsp');
+                div.appendChild(clearFiltersBtn);
+
+                $(searchBtn).click(function () {
+                    $('#jsGrid').jsGrid('search');
+                });
+
+                $(clearFiltersBtn).click(function () {
+                    $('#jsGrid').jsGrid('clearFilter');
+                });
+
+                return div;
+            }
+        }
+    ]
+}

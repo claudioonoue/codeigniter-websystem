@@ -14,11 +14,14 @@ class User extends CW_API_AJAX_Controller
     {
         $id = $this->session->userdata('id');
 
+        $fullName = $this->input->get('fullName') !== NULL ? $this->input->get('fullName') : '';
+        $email = $this->input->get('email') !== NULL ? $this->input->get('email') : '';
+
         $users = array_map(function ($user) {
             return $user;
-        }, $this->user_model->fetchWithoutLoggedUser($id, $this->limit, $this->offset));
+        }, $this->user_model->fetchWithoutLoggedUser($id, $fullName, $email, $this->limit, $this->offset));
 
-        $count = count($this->user_model->fetch());
+        $count = count($this->user_model->fetchWithoutLoggedUser($id, $fullName, $email, count($this->user_model->fetch()), 1));
 
         $data = [
             'data' => $users,

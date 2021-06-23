@@ -17,8 +17,9 @@ function loadData(filter) {
 
 function loadGrid() {
     var gridConfig = loadJSGridDefaultConfig({
-        fields: [
-            { type: 'number', name: 'id', title: 'ID', align: 'center' },
+        filtering: true,
+        fields: loadJSGridDefaultFields([
+            { type: 'number', name: 'id', title: 'ID', align: 'center', filtering: false },
             { type: 'text', name: 'fullName', title: 'Nome' },
             { type: 'text', name: 'email', title: 'Email' },
             {
@@ -26,6 +27,7 @@ function loadGrid() {
                 name: 'isAdmin',
                 title: 'Admin',
                 align: 'center',
+                filtering: false,
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -37,6 +39,7 @@ function loadGrid() {
                 name: 'hasSystemAccess',
                 title: 'Acesso ao sistema',
                 align: 'center',
+                filtering: false,
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -48,6 +51,7 @@ function loadGrid() {
                 name: 'isProvider',
                 title: 'Fornecedor',
                 align: 'center',
+                filtering: false,
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -59,6 +63,7 @@ function loadGrid() {
                 name: 'active',
                 title: 'Ativo',
                 align: 'center',
+                filtering: false,
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -70,6 +75,7 @@ function loadGrid() {
                 name: 'totalAddresses',
                 title: 'Cadastro completo',
                 align: 'center',
+                filtering: false,
                 itemTemplate: function (value, item) {
                     var totalNeededAddresses = item.isProvider === '1' ? 2 : item.isAdmin === '0' ? 1 : 0;
                     var iconElement = document.createElement('i');
@@ -77,7 +83,7 @@ function loadGrid() {
                     return iconElement;
                 }
             },
-        ],
+        ]),
         controller: {
             loadData: loadData,
         },

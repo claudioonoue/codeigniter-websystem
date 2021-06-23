@@ -34,7 +34,7 @@ class User_Model extends CW_Model
         return $formatedResults;
     }
 
-    public function fetchWithoutLoggedUser($id, $limit, $offset)
+    public function fetchWithoutLoggedUser($id, $fullName, $email, $limit, $offset)
     {
         $sql = <<<SQL
             SELECT u.*, 
@@ -45,10 +45,18 @@ class User_Model extends CW_Model
             ) AS `totalAddresses`
             FROM users u
             WHERE u.id != ?
+            AND u.fullName LIKE ?
+            AND u.email LIKE ?
             LIMIT ?
             OFFSET ?;
         SQL;
-        $query = $this->db->query($sql, [$id, $limit, $offset]);
+        $query = $this->db->query($sql, [
+            $id,
+            '%' . $fullName . '%',
+            '%' . $email . '%',
+            $limit,
+            $offset
+        ]);
         $formatedResults = [];
 
         foreach ($query->result() as $row) {
