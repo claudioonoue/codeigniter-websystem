@@ -24,11 +24,11 @@
         <div class="card-body">
             <div class="form-group">
                 <label for="formInpName">Nome*</label>
-                <input type="text" name="name" value="<?= $product->name ?>" class="form-control form-control-border" id="formInpName" placeholder="Nome" required>
+                <input type="text" name="name" value="<?= $product->name ?>" class="form-control form-control-border" id="formInpName" placeholder="Nome" required <?= !$product->active ? 'disabled' : '' ?>>
             </div>
             <div class="form-group">
                 <label for="formInpDescription">Descrição*</label>
-                <textarea name="description" class="form-control" id="formInpDescription" rows="3" placeholder="Descrição..." required><?= $product->description ?></textarea>
+                <textarea name="description" class="form-control" id="formInpDescription" rows="3" placeholder="Descrição..." required <?= !$product->active ? 'disabled' : '' ?>><?= $product->description ?></textarea>
             </div>
             <div class="form-group">
                 <div class="custom-control custom-switch">

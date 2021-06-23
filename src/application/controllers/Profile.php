@@ -27,7 +27,7 @@ class Profile extends CW_Controller
 
             if ($this->form_validation->run() === false) {
                 $this->session->set_flashdata('edit_error', 'Verifique os campos obrigatórios.');
-                redirect('/profile/index');
+                redirect('/profile');
             }
 
             $password = $this->input->post('password');
@@ -42,12 +42,12 @@ class Profile extends CW_Controller
             if ($password !== '' && $newPassword !== '') {
                 if (!password_verify($password, $user->password)) {
                     $this->session->set_flashdata('edit_error', 'Senha antiga inválida.');
-                    redirect('/profile/index');
+                    redirect('/profile');
                 }
 
                 if (password_verify($newPassword, $user->password)) {
                     $this->session->set_flashdata('edit_error', 'A nova senha não pode ser a mesma que a antiga.');
-                    redirect('/profile/index');
+                    redirect('/profile');
                 }
             }
 
@@ -68,12 +68,12 @@ class Profile extends CW_Controller
                 $manipulateAddressesSuccess = $this->manipulateAddresses(intval($user->totalAddresses) === 0 ? 'insert' : 'update', $user->id, $neededAddresses);
                 if ($manipulateAddressesSuccess === false) {
                     $this->session->set_flashdata('edit_error', 'Verifique os campos de endereço obrigatórios.');
-                    redirect('/profile/index');
+                    redirect('/profile');
                 }
             }
 
             $this->session->set_flashdata('edit_success', 'Dados editados com sucesso.');
-            redirect('/profile/index');
+            redirect('/profile');
         } else {
             $addresses = $this->address_model->fetchByUserId($user->id);
             $this->loadJs([

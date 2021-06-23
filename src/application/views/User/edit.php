@@ -39,25 +39,25 @@
             </div>
             <div class="form-group">
                 <label for="formInpPassword">Senha</label>
-                <input type="password" name="password" class="form-control form-control-border" id="formInpPassword" placeholder="Senha" autocomplete="off">
+                <input type="password" name="password" class="form-control form-control-border" id="formInpPassword" placeholder="Senha" autocomplete="off" <?= !$user->active ? 'disabled' : '' ?>>
             </div>
             <div class="form-group">
                 <label for="formInpNewPassword">Nova senha</label>
-                <input type="password" name="newPassword" class="form-control form-control-border" id="formInpNewPassword" placeholder="Nova senha" autocomplete="off">
+                <input type="password" name="newPassword" class="form-control form-control-border" id="formInpNewPassword" placeholder="Nova senha" autocomplete="off" <?= !$user->active ? 'disabled' : '' ?>>
             </div>
             <div class="form-group">
                 <label for="formInpFullName">Nome*</label>
-                <input type="text" name="fullName" value="<?= $user->fullName ?>" class="form-control form-control-border" id="formInpFullName" placeholder="Nome" required>
+                <input type="text" name="fullName" value="<?= $user->fullName ?>" class="form-control form-control-border" id="formInpFullName" placeholder="Nome" required <?= !$user->active ? 'disabled' : '' ?>>
             </div>
             <div class="form-group">
                 <label for="formInpPhone">Telefone*</label>
-                <input type="text" name="phone" value="<?= $user->phone ?>" class="form-control form-control-border" id="formInpPhone" placeholder="Telefone" required>
+                <input type="text" name="phone" value="<?= $user->phone ?>" class="form-control form-control-border" id="formInpPhone" placeholder="Telefone" required <?= !$user->active ? 'disabled' : '' ?>>
             </div>
             <div class="row">
                 <div class="col-6">
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="isAdmin" class="custom-control-input" id="formInpIsAdmin" <?= $user->isAdmin ? 'checked' : '' ?>>
+                            <input type="checkbox" name="isAdmin" class="custom-control-input" id="formInpIsAdmin" <?= $user->isAdmin ? 'checked' : '' ?> <?= !$user->active ? 'disabled' : '' ?>>
                             <label class="custom-control-label" for="formInpIsAdmin">Administrador</label>
                         </div>
                     </div>
@@ -65,7 +65,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="hasSystemAccess" class="custom-control-input" id="formInpHasSystemAccess" <?= $user->hasSystemAccess ? 'checked' : '' ?>>
+                            <input type="checkbox" name="hasSystemAccess" class="custom-control-input" id="formInpHasSystemAccess" <?= $user->hasSystemAccess ? 'checked' : '' ?> <?= !$user->active ? 'disabled' : '' ?>>
                             <label class="custom-control-label" for="formInpHasSystemAccess">Possui acesso ao sistema</label>
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                 <div class="col-6">
                     <div class="form-group">
                         <div class="custom-control custom-switch">
-                            <input type="checkbox" name="isProvider" class="custom-control-input" id="formInpIsProvider" <?= $user->isProvider ? 'checked' : '' ?>>
+                            <input type="checkbox" name="isProvider" class="custom-control-input" id="formInpIsProvider" <?= $user->isProvider ? 'checked' : '' ?> <?= !$user->active ? 'disabled' : '' ?>>
                             <label class="custom-control-label" for="formInpIsProvider">Fornecedor</label>
                         </div>
                     </div>
@@ -141,37 +141,37 @@
                         <div class="tab-pane active" id="tab_1">
                             <div class="form-group">
                                 <label for="formInpFirstZipCode">CEP*</label>
-                                <input type="text" name="firstZipCode" value="<?= isset($firstAddress) ? $firstAddress->zipCode : '' ?>" class="form-control form-control-border" id="formInpFirstZipCode" placeholder="CEP" required>
+                                <input type="text" name="firstZipCode" value="<?= isset($firstAddress) ? $firstAddress->zipCode : '' ?>" class="form-control form-control-border" id="formInpFirstZipCode" placeholder="CEP" required <?= !$user->active ? 'disabled' : '' ?>>
                             </div>
                             <div class="row">
                                 <div class="col-8">
                                     <div class="form-group">
                                         <label for="formInpFirstAddress">Endereço*</label>
-                                        <input type="text" name="firstAddress" value="<?= isset($firstAddress) ? $firstAddress->address : '' ?>" class="form-control form-control-border" id="formInpFirstAddress" placeholder="Rua, Avenida..." required>
+                                        <input type="text" name="firstAddress" value="<?= isset($firstAddress) ? $firstAddress->address : '' ?>" class="form-control form-control-border" id="formInpFirstAddress" placeholder="Rua, Avenida..." required <?= !$user->active ? 'disabled' : '' ?>>
                                     </div>
                                 </div>
                                 <div class="col-4">
                                     <div class="form-group">
                                         <label for="formInpFirstNumber">Número*</label>
-                                        <input type="text" name="firstNumber" value="<?= isset($firstAddress) ? $firstAddress->number : '' ?>" class="form-control form-control-border" id="formInpFirstNumber" placeholder="Número" required>
+                                        <input type="text" name="firstNumber" value="<?= isset($firstAddress) ? $firstAddress->number : '' ?>" class="form-control form-control-border" id="formInpFirstNumber" placeholder="Número" required <?= !$user->active ? 'disabled' : '' ?>>
                                     </div>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="formInpFirstComplement">Complemento</label>
-                                <input type="text" name="firstComplement" value="<?= isset($firstAddress) ? $firstAddress->complement : '' ?>" class="form-control form-control-border" id="formInpFirstComplement" placeholder="Complemento">
+                                <input type="text" name="firstComplement" value="<?= isset($firstAddress) ? $firstAddress->complement : '' ?>" class="form-control form-control-border" id="formInpFirstComplement" placeholder="Complemento" <?= !$user->active ? 'disabled' : '' ?>>
                             </div>
                             <div class="row">
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="formInpFirstNeighborhood">Bairro*</label>
-                                        <input type="text" name="firstNeighborhood" value="<?= isset($firstAddress) ? $firstAddress->neighborhood : '' ?>" class="form-control form-control-border" id="formInpFirstNeighborhood" placeholder="Bairro" required>
+                                        <input type="text" name="firstNeighborhood" value="<?= isset($firstAddress) ? $firstAddress->neighborhood : '' ?>" class="form-control form-control-border" id="formInpFirstNeighborhood" placeholder="Bairro" required <?= !$user->active ? 'disabled' : '' ?>>
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="formInpFirstCity">Cidade*</label>
-                                        <input type="text" name="firstCity" value="<?= isset($firstAddress) ? $firstAddress->city : '' ?>" class="form-control form-control-border" id="formInpFirstCity" placeholder="Cidade" required>
+                                        <input type="text" name="firstCity" value="<?= isset($firstAddress) ? $firstAddress->city : '' ?>" class="form-control form-control-border" id="formInpFirstCity" placeholder="Cidade" required <?= !$user->active ? 'disabled' : '' ?>>
                                     </div>
                                 </div>
                             </div>
@@ -179,7 +179,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="formInpFirstState">Estado*</label>
-                                        <select name="firstState" class="custom-select form-control-border" id="formInpFirstState" required>
+                                        <select name="firstState" class="custom-select form-control-border" id="formInpFirstState" required <?= !$user->active ? 'disabled' : '' ?>>
                                             <option value="">Selecione...</option>
                                             <?php foreach ($states as $acronym => $name) : ?>
                                                 <option value="<?= $acronym ?>" <?= isset($firstAddress) && $firstAddress->state === $acronym ? 'selected' : '' ?>><?= $name ?></option>
@@ -190,7 +190,7 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="formInpFirstCountry">País*</label>
-                                        <select name="firstCountry" class="custom-select form-control-border" id="formInpFirstCountry">
+                                        <select name="firstCountry" class="custom-select form-control-border" id="formInpFirstCountry" <?= !$user->active ? 'disabled' : '' ?>>
                                             <option value="brasil">Brasil</option>
                                         </select>
                                     </div>
@@ -201,37 +201,37 @@
                             <div class="tab-pane" id="tab_2">
                                 <div class="form-group">
                                     <label for="formInpSecondZipCode">CEP*</label>
-                                    <input type="text" name="secondZipCode" value="<?= isset($secondAddress) ? $secondAddress->zipCode : '' ?>" class="form-control form-control-border" id="formInpSecondZipCode" placeholder="CEP" required>
+                                    <input type="text" name="secondZipCode" value="<?= isset($secondAddress) ? $secondAddress->zipCode : '' ?>" class="form-control form-control-border" id="formInpSecondZipCode" placeholder="CEP" required <?= !$user->active ? 'disabled' : '' ?>>
                                 </div>
                                 <div class="row">
                                     <div class="col-8">
                                         <div class="form-group">
                                             <label for="formInpSecondAddress">Endereço*</label>
-                                            <input type="text" name="secondAddress" value="<?= isset($secondAddress) ? $secondAddress->address : '' ?>" class="form-control form-control-border" id="formInpSecondAddress" placeholder="Rua, Avenida..." required>
+                                            <input type="text" name="secondAddress" value="<?= isset($secondAddress) ? $secondAddress->address : '' ?>" class="form-control form-control-border" id="formInpSecondAddress" placeholder="Rua, Avenida..." required <?= !$user->active ? 'disabled' : '' ?>>
                                         </div>
                                     </div>
                                     <div class="col-4">
                                         <div class="form-group">
                                             <label for="formInpSecondNumber">Número*</label>
-                                            <input type="text" name="secondNumber" value="<?= isset($secondAddress) ? $secondAddress->number : '' ?>" class="form-control form-control-border" id="formInpSecondNumber" placeholder="Número" required>
+                                            <input type="text" name="secondNumber" value="<?= isset($secondAddress) ? $secondAddress->number : '' ?>" class="form-control form-control-border" id="formInpSecondNumber" placeholder="Número" required <?= !$user->active ? 'disabled' : '' ?>>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group">
                                     <label for="formInpSecondComplement">Complemento</label>
-                                    <input type="text" name="secondComplement" value="<?= isset($secondAddress) ? $secondAddress->complement : '' ?>" class="form-control form-control-border" id="formInpSecondComplement" placeholder="Complemento">
+                                    <input type="text" name="secondComplement" value="<?= isset($secondAddress) ? $secondAddress->complement : '' ?>" class="form-control form-control-border" id="formInpSecondComplement" placeholder="Complemento" <?= !$user->active ? 'disabled' : '' ?>>
                                 </div>
                                 <div class="row">
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="formInpSecondNeighborhood">Bairro*</label>
-                                            <input type="text" name="secondNeighborhood" value="<?= isset($secondAddress) ? $secondAddress->neighborhood : '' ?>" class="form-control form-control-border" id="formInpSecondNeighborhood" placeholder="Bairro" required>
+                                            <input type="text" name="secondNeighborhood" value="<?= isset($secondAddress) ? $secondAddress->neighborhood : '' ?>" class="form-control form-control-border" id="formInpSecondNeighborhood" placeholder="Bairro" required <?= !$user->active ? 'disabled' : '' ?>>
                                         </div>
                                     </div>
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="formInpSecondCity">Cidade*</label>
-                                            <input type="text" name="secondCity" value="<?= isset($secondAddress) ? $secondAddress->city : '' ?>" class="form-control form-control-border" id="formInpSecondCity" placeholder="Cidade" required>
+                                            <input type="text" name="secondCity" value="<?= isset($secondAddress) ? $secondAddress->city : '' ?>" class="form-control form-control-border" id="formInpSecondCity" placeholder="Cidade" required <?= !$user->active ? 'disabled' : '' ?>>
                                         </div>
                                     </div>
                                 </div>
@@ -239,7 +239,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="formInpSecondState">Estado*</label>
-                                            <select name="secondState" class="custom-select form-control-border" id="formInpSecondState" required>
+                                            <select name="secondState" class="custom-select form-control-border" id="formInpSecondState" required <?= !$user->active ? 'disabled' : '' ?>>
                                                 <option value="">Selecione...</option>
                                                 <?php foreach ($states as $acronym => $name) : ?>
                                                     <option value="<?= $acronym ?>" <?= isset($secondAddress) && $secondAddress->state === $acronym ? 'selected' : '' ?>><?= $name ?></option>
@@ -250,7 +250,7 @@
                                     <div class="col-6">
                                         <div class="form-group">
                                             <label for="formInpSecondCountry">País*</label>
-                                            <select name="secondCountry" class="custom-select form-control-border" id="formInpSecondCountry">
+                                            <select name="secondCountry" class="custom-select form-control-border" id="formInpSecondCountry" <?= !$user->active ? 'disabled' : '' ?>>
                                                 <option value="brasil">Brasil</option>
                                             </select>
                                         </div>

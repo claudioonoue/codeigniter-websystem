@@ -61,7 +61,7 @@ class User extends CW_Controller
             $this->user_model->prepare('insert', $newUser);
             $this->user_model->insert();
 
-            redirect('/user/index');
+            redirect('/user');
         } else {
             $this->loadJs([
                 'create.js'
@@ -73,28 +73,44 @@ class User extends CW_Controller
     public function edit($id)
     {
         if (!isset($id) && $id === '') {
-            redirect('/user/index');
+            redirect('/user');
         }
         $user = $this->user_model->fetchById($id);
         if (!isset($user)) {
-            redirect('/user/index');
+            redirect('/user');
         }
         if ($this->input->method(true) === 'POST') {
-            $this->form_validation->set_rules('fullName', 'Fullname', 'required');
-            $this->form_validation->set_rules('phone', 'Phone', 'required');
-
-            if ($this->form_validation->run() === false) {
-                $this->session->set_flashdata('edit_error', 'Verifique os campos obrigatórios.');
+            if (($user->active === '0') && ($this->input->post('active') === NULL)) {
+                $this->session->set_flashdata('edit_error', 'Ative o usuário para editá-lo.');
                 redirect('/user/edit/' . $id);
             }
 
-            $password = $this->input->post('password');
-            $newPassword = $this->input->post('newPassword');
-            $fullName = $this->input->post('fullName');
-            $phone = $this->input->post('phone');
-            $isAdmin = $this->input->post('isAdmin');
-            $hasSystemAccess = $this->input->post('hasSystemAccess');
-            $isProvider = $this->input->post('isProvider');
+            $password = '';
+            $newPassword = '';
+            $fullName = $user->fullName;
+            $phone = $user->phone;
+            $isAdmin = $user->isAdmin === '1' ? true : NULL;
+            $hasSystemAccess = $user->hasSystemAccess === '1' ? true : NULL;
+            $isProvider = $user->isProvider === '1' ? true : NULL;
+
+            if ($user->active === '1') {
+                $this->form_validation->set_rules('fullName', 'Fullname', 'required');
+                $this->form_validation->set_rules('phone', 'Phone', 'required');
+
+                if ($this->form_validation->run() === false) {
+                    $this->session->set_flashdata('edit_error', 'Verifique os campos obrigatórios.');
+                    redirect('/user/edit/' . $id);
+                }
+
+                $password = $this->input->post('password');
+                $newPassword = $this->input->post('newPassword');
+                $fullName = $this->input->post('fullName');
+                $phone = $this->input->post('phone');
+                $isAdmin = $this->input->post('isAdmin');
+                $hasSystemAccess = $this->input->post('hasSystemAccess');
+                $isProvider = $this->input->post('isProvider');
+            }
+
             $active = $this->input->post('active');
 
             if ($password !== '' && $newPassword !== '') {
@@ -122,8 +138,8 @@ class User extends CW_Controller
             $this->user_model->update($id);
 
             $neededAddresses = $user->isProvider === '1' ? 2 : ($user->isAdmin === '0' ? 1 : 0);
-            if ($neededAddresses > 0) {
-                $manipulateAddressesSuccess = $this->manipulateAddresses(intval($user->totalAddresses) === 0 ? 'insert' : 'update', $user->id, $neededAddresses);
+            if ($user->active && $neededAddresses > 0) {
+                $manipulateAddressesSuccess = $this->manipulateAddresses('insert', $user->id, $neededAddresses);
                 if ($manipulateAddressesSuccess === false) {
                     $this->session->set_flashdata('edit_error', 'Verifique os campos de endereço obrigatórios.');
                     redirect('/user/edit/' . $id);
@@ -165,6 +181,8 @@ class User extends CW_Controller
             return false;
         }
 
+        $this->address_model->delete($userId);
+
         $firstZipCode = $this->input->post('firstZipCode');
         $firstAddress = $this->input->post('firstAddress');
         $firstNumber = $this->input->post('firstNumber');
@@ -189,11 +207,7 @@ class User extends CW_Controller
 
         $this->address_model->cleanModel();
         $this->address_model->prepare($operation, $firstAddressObj);
-        if ($operation === 'insert') {
-            $this->address_model->insert();
-        } else {
-            $this->address_model->update($userId, 1);
-        }
+        $this->address_model->insert();
 
         if ($neededAddresses > 1) {
             $secondZipCode = $this->input->post('secondZipCode');
@@ -220,11 +234,7 @@ class User extends CW_Controller
 
             $this->address_model->cleanModel();
             $this->address_model->prepare($operation, $secondAddressObj);
-            if ($operation === 'insert') {
-                $this->address_model->insert();
-            } else {
-                $this->address_model->update($userId, 2);
-            }
+            $this->address_model->insert();
         }
 
         return true;

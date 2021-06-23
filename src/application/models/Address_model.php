@@ -106,6 +106,16 @@ class Address_Model extends CW_Model
         return $query;
     }
 
+    public function delete($userId)
+    {
+        $sql = <<<SQL
+            DELETE FROM addresses
+            WHERE userId = ?;
+        SQL;
+        $query = $this->db->query($sql, [$userId]);
+        return $query;
+    }
+
     public function prepare($operation, $data)
     {
         $this->zipCode = trim($data->zipCode);

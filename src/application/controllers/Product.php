@@ -59,16 +59,27 @@ class Product extends CW_Controller
             redirect('/product');
         }
         if ($this->input->method(true) === 'POST') {
-            $this->form_validation->set_rules('name', 'Name', 'required');
-            $this->form_validation->set_rules('description', 'Description', 'required');
-
-            if ($this->form_validation->run() === false) {
-                $this->session->set_flashdata('edit_error', 'Verifique os campos obrigatórios.');
+            if (($product->active === '0') && ($this->input->post('active') === NULL)) {
+                $this->session->set_flashdata('edit_error', 'Ative o produto para editá-lo.');
                 redirect('/product/edit/' . $id);
             }
 
-            $name = $this->input->post('name');
-            $description = $this->input->post('description');
+            $name = $product->name;
+            $description = $product->description;
+
+            if ($product->active === '1') {
+                $this->form_validation->set_rules('name', 'Name', 'required');
+                $this->form_validation->set_rules('description', 'Description', 'required');
+
+                if ($this->form_validation->run() === false) {
+                    $this->session->set_flashdata('edit_error', 'Verifique os campos obrigatórios.');
+                    redirect('/product/edit/' . $id);
+                }
+
+                $name = $this->input->post('name');
+                $description = $this->input->post('description');
+            }
+
             $active = $this->input->post('active');
 
             $newProductData = new stdClass();
