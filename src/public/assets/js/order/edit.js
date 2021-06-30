@@ -2,6 +2,8 @@ $(document).ready(() => {
     jqValidate()
     formProductList()
     totalProductsRow = $('.div-products').length
+    btnFinishConfirm()
+    btnDeleteConfirm()
 })
 
 function jqValidate() {
@@ -215,4 +217,22 @@ function showError(message) {
 
 function removeError() {
     $('#productErrorBox').remove()
+}
+
+function btnFinishConfirm() {
+    $('#btnFinishOrder').click((e) => {
+        var result = confirm('Deseja realmente finalizar o pedido?')
+        if (!result) {
+            e.preventDefault()
+        }
+    })
+}
+
+function btnDeleteConfirm() {
+    $('#btnDeleteOrder').click((e) => {
+        var result = confirm('Deseja realmente deletar o pedido?')
+        if (!result) {
+            e.preventDefault()
+        }
+    })
 }

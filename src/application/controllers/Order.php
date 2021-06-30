@@ -109,6 +109,10 @@ class Order extends CW_Controller
             redirect('/order');
         }
         if ($this->input->method(true) === 'POST') {
+            if ($order->finished === '1') {
+                redirect('/order/edit/' . $id);
+            }
+
             $this->form_validation->set_rules('providerId', 'Provider ID', 'required');
 
             if ($this->form_validation->run() === false) {
@@ -188,5 +192,53 @@ class Order extends CW_Controller
                 'products' => $products,
             ]);
         }
+    }
+
+    public function finish($id)
+    {
+        if (!isset($id) && $id === '') {
+            redirect('/order');
+        }
+        $order = $this->order_model->fetchById($id);
+        if (!isset($order)) {
+            redirect('/order');
+        }
+        if ($order->finished === '1') {
+            redirect('/order/edit/' . $id);
+        }
+
+        $providerId = $order->providerId;
+        $observations = $order->observations;
+        $finished = true;
+
+        $newOrderData = new stdClass();
+        $newOrderData->providerId = $providerId;
+        $newOrderData->observations = $observations;
+        $newOrderData->finished = $finished;
+
+        $this->order_model->cleanModel();
+        $this->order_model->prepare('update', $newOrderData);
+        $this->order_model->update($order->id);
+
+        redirect('/order/edit/' . $id);
+    }
+
+    public function delete($id)
+    {
+        if (!isset($id) && $id === '') {
+            redirect('/order');
+        }
+        $order = $this->order_model->fetchById($id);
+        if (!isset($order)) {
+            redirect('/order');
+        }
+        if ($order->finished === '1') {
+            redirect('/order/edit/' . $id);
+        }
+
+        $this->order_product_model->deleteByOrderId($order->id);
+        $this->order_model->delete($id);
+
+        redirect('/order');
     }
 }

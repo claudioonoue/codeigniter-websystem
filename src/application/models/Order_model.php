@@ -106,6 +106,16 @@ class Order_Model extends CW_Model
         return $query;
     }
 
+    public function delete($id)
+    {
+        $sql = <<<SQL
+            DELETE FROM orders
+            WHERE id = ?;
+        SQL;
+        $query = $this->db->query($sql, [$id]);
+        return $query;
+    }
+
     public function prepare($operation, $data)
     {
         $this->providerId = $data->providerId;
