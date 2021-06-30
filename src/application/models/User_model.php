@@ -99,6 +99,24 @@ class User_Model extends CW_Model
         return $row;
     }
 
+    public function fetchProviders()
+    {
+        $sql = <<<SQL
+            SELECT * 
+            FROM users u
+            WHERE u.isProvider = 1;
+        SQL;
+        $query = $this->db->query($sql);
+
+        $formatedResults = [];
+
+        foreach ($query->result() as $row) {
+            array_push($formatedResults, $this->toResponse($row));
+        }
+
+        return $formatedResults;
+    }
+
     public function insert()
     {
         $sql = <<<SQL
@@ -192,7 +210,10 @@ class User_Model extends CW_Model
         $response->active = $data->active;
         $response->createdAt = $data->createdAt;
         $response->updatedAt = $data->updatedAt;
-        $response->totalAddresses = $data->totalAddresses;
+
+        if (isset($data->totalAddresses)) {
+            $response->totalAddresses = $data->totalAddresses;
+        }
 
         return $response;
     }

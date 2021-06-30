@@ -27,4 +27,20 @@ class Product extends CW_API_AJAX_Controller
 
         $this->toJSON($data, 200);
     }
+
+    public function list_all()
+    {
+        $products = array_map(function ($product) {
+            return $product;
+        }, $this->product_model->fetch());
+
+        $count = count($products);
+
+        $data = [
+            'data' => $products,
+            'itemsCount' => $count,
+        ];
+
+        $this->toJSON($data, 200);
+    }
 }

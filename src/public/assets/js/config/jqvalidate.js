@@ -3,7 +3,16 @@ jQuery.extend(jQuery.validator.messages, {
 })
 
 var JQValidateDefaultConfig = {
-    ignore: ''
+    ignore: '',
+    errorPlacement: function (error, element) {
+        let isSelect2 = $(element).hasClass('select2')
+
+        if (isSelect2) {
+            $(error).insertAfter($(element).next('span'))
+        } else {
+            $(error).insertAfter($(element))
+        }
+    }
 }
 
 function loadJQValidateDefaultConfig(customConfigs) {

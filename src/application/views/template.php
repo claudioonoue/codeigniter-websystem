@@ -23,6 +23,10 @@ scratch. This page gets rid of all links and provides the needed markup only.
 
     <!-- JQ Validate -->
     <link rel="stylesheet" href="/assets/css/config/jqvalidate.css">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="/plugins/select2/css/select2.min.css">
+    <link rel="stylesheet" href="/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css">
 </head>
 
 <body class="hold-transition sidebar-mini">
@@ -108,6 +112,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
                                 </p>
                             </a>
                         </li>
+                        <li class="nav-item">
+                            <a href="/order" class="nav-link">
+                                <i class="nav-icon fas fa-boxes"></i>
+                                <p>
+                                    Pedidos
+                                </p>
+                            </a>
+                        </li>
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
@@ -152,9 +164,12 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/plugins/jsgrid/jsgrid.min.js"></script>
     <!-- jquery-validation -->
     <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
+    <!-- Select2 -->
+    <script src="/plugins/select2/js/select2.full.min.js"></script>
     <!-- Custom JS -->
     <script src="/assets/js/config/jsgrid.js"></script>
     <script src="/assets/js/config/jqvalidate.js"></script>
+    <script src="/assets/js/config/select2.js"></script>
     <?php if (isset($js)) : ?>
         <?php foreach ($js as $file) : ?>
             <script src="<?= $file ?>"></script>
