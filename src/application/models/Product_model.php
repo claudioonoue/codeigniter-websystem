@@ -24,6 +24,23 @@ class Product_Model extends CW_Model
         return $formatedResults;
     }
 
+    public function fetchInative()
+    {
+        $sql = <<<SQL
+            SELECT *
+            FROM products p
+            WHERE p.active = 0;
+        SQL;
+        $query = $this->db->query($sql);
+        $formatedResults = [];
+
+        foreach ($query->result() as $row) {
+            array_push($formatedResults, $this->toResponse($row));
+        }
+
+        return $formatedResults;
+    }
+
     public function fetchActive()
     {
         $sql = <<<SQL

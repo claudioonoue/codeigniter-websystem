@@ -25,6 +25,23 @@ class Order_Model extends CW_Model
         return $formatedResults;
     }
 
+    public function fetchNotFinished()
+    {
+        $sql = <<<SQL
+            SELECT *
+            FROM orders o
+            WHERE o.finished = 0;
+        SQL;
+        $query = $this->db->query($sql);
+        $formatedResults = [];
+
+        foreach ($query->result() as $row) {
+            array_push($formatedResults, $this->toResponse($row));
+        }
+
+        return $formatedResults;
+    }
+
     public function ajaxFetch($provider, $contributor, $observations, $finished, $limit, $offset)
     {
         $whereValues = [

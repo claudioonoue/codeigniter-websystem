@@ -73,7 +73,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
                         <img src="/dist/img/user_logo.png" class="img-circle elevation-2" alt="User Image">
                     </div>
                     <div class="info">
-                        <a href="/profile/index" class="d-block"><?= $this->session->userdata('fullName') ?></a>
+                        <a href="/profile" class="d-block"><?= $this->session->userdata('fullName') ?></a>
                     </div>
                 </div>
 
@@ -144,7 +144,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
             <!-- Control sidebar content goes here -->
             <div class="p-3">
                 <h5>Configurações</h5>
-                <a href="/profile/index"><button type="button" class="btn btn-block btn-info mb-2"><i class="nav-icon fas fa-user-cog"></i> Perfil</button></a>
+                <a href="/profile"><button type="button" class="btn btn-block btn-info mb-2"><i class="nav-icon fas fa-user-cog"></i> Perfil</button></a>
                 <a href="/auth/logout"><button type="button" class="btn btn-block btn-warning mb-2"><i class="nav-icon fas fa-sign-out-alt"></i> Sair</button></a>
             </div>
         </aside>
