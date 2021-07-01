@@ -34,8 +34,23 @@ class User_Model extends CW_Model
         return $formatedResults;
     }
 
-    public function fetchWithoutLoggedUser($id, $fullName, $email, $limit, $offset)
-    {
+    public function fetchWithoutLoggedUser(
+        $id,
+        $fullName,
+        $email,
+        $isAdmin,
+        $hasSystemAccess,
+        $isProvider,
+        $active,
+        $totalAddresses,
+        $limit,
+        $offset
+    ) {
+        $whereValues = [
+            $id,
+            '%' . $fullName . '%',
+            '%' . $email . '%',
+        ];
         $sql = <<<SQL
             SELECT u.*, 
             (
@@ -47,16 +62,53 @@ class User_Model extends CW_Model
             WHERE u.id != ?
             AND u.fullName LIKE ?
             AND u.email LIKE ?
+        SQL;
+
+        if ($isAdmin !== '') {
+            $sql .= <<<SQL
+                AND u.isAdmin = ?
+            SQL;
+            array_push($whereValues, $isAdmin);
+        }
+
+        if ($hasSystemAccess !== '') {
+            $sql .= <<<SQL
+                AND u.hasSystemAccess = ?
+            SQL;
+            array_push($whereValues, $hasSystemAccess);
+        }
+
+        if ($isProvider !== '') {
+            $sql .= <<<SQL
+                AND u.isProvider = ?
+            SQL;
+            array_push($whereValues, $isProvider);
+        }
+
+        if ($active !== '') {
+            $sql .= <<<SQL
+                AND u.active = ?
+            SQL;
+            array_push($whereValues, $active);
+        }
+
+        if ($totalAddresses !== '') {
+            $sql .= <<<SQL
+                AND (SELECT COUNT(a.id) FROM addresses a WHERE a.userId = u.id)
+            SQL;
+            $sql .= $totalAddresses === '1' ? ' = ' : ' != ';
+            $sql .= <<<SQL
+                IF(u.isProvider, 2, IF(u.isAdmin, 0, 1))
+            SQL;
+        }
+
+        $sql .= <<<SQL
             LIMIT ?
             OFFSET ?;
         SQL;
-        $query = $this->db->query($sql, [
-            $id,
-            '%' . $fullName . '%',
-            '%' . $email . '%',
-            $limit,
-            $offset
-        ]);
+        array_push($whereValues, $limit, $offset);
+
+        $query = $this->db->query($sql, $whereValues);
         $formatedResults = [];
 
         foreach ($query->result() as $row) {

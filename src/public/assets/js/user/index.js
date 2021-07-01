@@ -23,11 +23,18 @@ function loadGrid() {
             { type: 'text', name: 'fullName', title: 'Nome' },
             { type: 'text', name: 'email', title: 'Email' },
             {
-                type: 'text',
+                type: 'select',
                 name: 'isAdmin',
                 title: 'Admin',
                 align: 'center',
-                filtering: false,
+                items: [
+                    { Name: 'Selecione', Id: -1 },
+                    { Name: 'Não', Id: '0' },
+                    { Name: 'Sim', Id: '1' }
+                ],
+                selectedIndex: -1,
+                textField: 'Name',
+                valueField: 'Id',
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -35,11 +42,18 @@ function loadGrid() {
                 }
             },
             {
-                type: 'text',
+                type: 'select',
                 name: 'hasSystemAccess',
                 title: 'Acesso ao sistema',
                 align: 'center',
-                filtering: false,
+                items: [
+                    { Name: 'Selecione', Id: -1 },
+                    { Name: 'Não', Id: '0' },
+                    { Name: 'Sim', Id: '1' }
+                ],
+                selectedIndex: -1,
+                textField: 'Name',
+                valueField: 'Id',
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -47,11 +61,18 @@ function loadGrid() {
                 }
             },
             {
-                type: 'text',
+                type: 'select',
                 name: 'isProvider',
                 title: 'Fornecedor',
                 align: 'center',
-                filtering: false,
+                items: [
+                    { Name: 'Selecione', Id: -1 },
+                    { Name: 'Não', Id: '0' },
+                    { Name: 'Sim', Id: '1' }
+                ],
+                selectedIndex: -1,
+                textField: 'Name',
+                valueField: 'Id',
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -59,11 +80,18 @@ function loadGrid() {
                 }
             },
             {
-                type: 'text',
+                type: 'select',
                 name: 'active',
                 title: 'Ativo',
                 align: 'center',
-                filtering: false,
+                items: [
+                    { Name: 'Selecione', Id: -1 },
+                    { Name: 'Não', Id: '0' },
+                    { Name: 'Sim', Id: '1' }
+                ],
+                selectedIndex: -1,
+                textField: 'Name',
+                valueField: 'Id',
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
@@ -71,11 +99,18 @@ function loadGrid() {
                 }
             },
             {
-                type: 'text',
+                type: 'select',
                 name: 'totalAddresses',
                 title: 'Cadastro completo',
                 align: 'center',
-                filtering: false,
+                items: [
+                    { Name: 'Selecione', Id: -1 },
+                    { Name: 'Não', Id: '0' },
+                    { Name: 'Sim', Id: '1' }
+                ],
+                selectedIndex: -1,
+                textField: 'Name',
+                valueField: 'Id',
                 itemTemplate: function (value, item) {
                     var totalNeededAddresses = item.isProvider === '1' ? 2 : item.isAdmin === '0' ? 1 : 0;
                     var iconElement = document.createElement('i');
