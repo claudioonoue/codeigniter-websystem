@@ -29,9 +29,10 @@ Mais abaixo será apresentada cada uma das telas.
 
 ## "/" - Página principal
 
-![aa](/docs/img/home.png =250x250)
+![](/docs/img/home.png "Página principal")
 
-![](https://gyazo.com/eb5c5741b6a9a16c692170a41a49c858.png =250x250)
+
+# API: Recursos
 
 | Method | URI | Descrição |
 | --- | --- | --- |
