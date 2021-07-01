@@ -13,12 +13,13 @@ class Product extends CW_API_AJAX_Controller
     {
         $name = $this->input->get('name') !== NULL ? $this->input->get('name') : '';
         $description = $this->input->get('description') !== NULL ? $this->input->get('description') : '';
+        $active = $this->input->get('active') !== NULL && $this->input->get('active') !== '-1' ? $this->input->get('active') : '';
 
         $products = array_map(function ($product) {
             return $product;
-        }, $this->product_model->ajaxFetch($name, $description, $this->limit, $this->offset));
+        }, $this->product_model->ajaxFetch($name, $description, $active, $this->limit, $this->offset));
 
-        $count = count($this->product_model->ajaxFetch($name, $description, count($this->product_model->fetch()), 1));
+        $count = count($this->product_model->ajaxFetch($name, $description, $active, count($this->product_model->fetch()), 1));
 
         $data = [
             'data' => $products,

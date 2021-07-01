@@ -41,22 +41,34 @@ class Product_Model extends CW_Model
         return $formatedResults;
     }
 
-    public function ajaxFetch($name, $description, $limit, $offset)
+    public function ajaxFetch($name, $description, $active, $limit, $offset)
     {
+        $whereValues = [
+            '%' . $name . '%',
+            '%' . $description . '%',
+        ];
+
         $sql = <<<SQL
             SELECT *
             FROM products p
             WHERE p.name LIKE ?
             AND p.description LIKE ?
+        SQL;
+
+        if ($active !== '') {
+            $sql .= <<<SQL
+                AND p.active = ?
+            SQL;
+            array_push($whereValues, $active);
+        }
+
+        $sql .= <<<SQL
             LIMIT ?
             OFFSET ?;
         SQL;
-        $query = $this->db->query($sql, [
-            '%' . $name . '%',
-            '%' . $description . '%',
-            $limit,
-            $offset
-        ]);
+        array_push($whereValues, $limit, $offset);
+
+        $query = $this->db->query($sql, $whereValues);
         $formatedResults = [];
 
         foreach ($query->result() as $row) {
