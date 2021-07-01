@@ -173,6 +173,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/assets/js/config/jqvalidate.js"></script>
     <script src="/assets/js/config/select2.js"></script>
     <script src="/assets/js/config/inputmask.js"></script>
+    <script src="/assets/js/config/viacep.js"></script>
     <?php if (isset($js)) : ?>
         <?php foreach ($js as $file) : ?>
             <script src="<?= $file ?>"></script>
