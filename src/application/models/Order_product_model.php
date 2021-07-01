@@ -27,6 +27,31 @@ class Order_Product_Model extends CW_Model
         return $formatedResults;
     }
 
+    public function fetchAPIByOrderId($orderId)
+    {
+        $sql = <<<SQL
+            SELECT 
+                op.productId,
+                p.name,
+                p.description,
+                op.quantity,
+                op.unitPrice
+            FROM orders_products op
+            INNER JOIN products p
+            ON p.id = op.productId
+            WHERE op.orderId = ?;
+        SQL;
+        $query = $this->db->query($sql, [$orderId]);
+
+        $formatedResults = [];
+
+        foreach ($query->result() as $row) {
+            array_push($formatedResults, $this->toAPIResponse($row));
+        }
+
+        return $formatedResults;
+    }
+
     public function insert()
     {
         $sql = <<<SQL
@@ -86,6 +111,18 @@ class Order_Product_Model extends CW_Model
         $response->unitPrice = $data->unitPrice;
         $response->createdAt = $data->createdAt;
         $response->updatedAt = $data->updatedAt;
+
+        return $response;
+    }
+
+    public function toAPIResponse($data)
+    {
+        $response = new stdClass();
+        $response->productId = $data->productId;
+        $response->name = $data->name;
+        $response->description = $data->description;
+        $response->quantity = $data->quantity;
+        $response->unitPrice = $data->unitPrice;
 
         return $response;
     }

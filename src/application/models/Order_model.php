@@ -62,6 +62,29 @@ class Order_Model extends CW_Model
         return $row;
     }
 
+    public function fetchFinished($limit, $offset)
+    {
+        $sql = <<<SQL
+            SELECT *
+            FROM orders o
+            WHERE o.finished = 1
+            LIMIT ?
+            OFFSET ?;
+        SQL;
+        $query = $this->db->query($sql, [
+            $limit,
+            $offset,
+        ]);
+
+        $formatedResults = [];
+
+        foreach ($query->result() as $row) {
+            array_push($formatedResults, $this->toAPIResponse($row));
+        }
+
+        return $formatedResults;
+    }
+
     public function insert()
     {
         $sql = <<<SQL
@@ -139,6 +162,19 @@ class Order_Model extends CW_Model
         $response->contributorId = $data->contributorId;
         $response->observations = $data->observations;
         $response->finished = $data->finished;
+        $response->createdAt = $data->createdAt;
+        $response->updatedAt = $data->updatedAt;
+
+        return $response;
+    }
+
+    public function toAPIResponse($data)
+    {
+        $response = new stdClass();
+        $response->id = $data->id;
+        $response->providerId = $data->providerId;
+        $response->contributorId = $data->contributorId;
+        $response->observations = $data->observations;
         $response->createdAt = $data->createdAt;
         $response->updatedAt = $data->updatedAt;
 

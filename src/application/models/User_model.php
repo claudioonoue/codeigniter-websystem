@@ -66,7 +66,7 @@ class User_Model extends CW_Model
         return $formatedResults;
     }
 
-    public function fetchById($id)
+    public function fetchById($id, $api = false)
     {
         $sql = <<<SQL
             SELECT u.*, 
@@ -81,6 +81,10 @@ class User_Model extends CW_Model
         $query = $this->db->query($sql, [$id]);
 
         $row = $query->row();
+
+        if ($api) {
+            return $this->toAPIResponse($row);
+        }
 
         return $row;
     }
@@ -214,6 +218,17 @@ class User_Model extends CW_Model
         if (isset($data->totalAddresses)) {
             $response->totalAddresses = $data->totalAddresses;
         }
+
+        return $response;
+    }
+
+    public function toAPIResponse($data)
+    {
+        $response = new stdClass();
+        $response->id = $data->id;
+        $response->email = $data->email;
+        $response->fullName = $data->fullName;
+        $response->phone = $data->phone;
 
         return $response;
     }

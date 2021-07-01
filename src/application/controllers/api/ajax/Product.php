@@ -32,7 +32,7 @@ class Product extends CW_API_AJAX_Controller
     {
         $products = array_map(function ($product) {
             return $product;
-        }, $this->product_model->fetch());
+        }, $this->product_model->fetchActive());
 
         $count = count($products);
 

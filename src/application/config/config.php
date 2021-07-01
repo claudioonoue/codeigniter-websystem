@@ -550,3 +550,7 @@ spl_autoload_register(function ($class) {
         }
     }
 });
+
+
+$config['jwt_secret_key'] = 'sDeGW1yovzSFj9Th0YKrTFOu9umvStgX';
+$config['jwt_exp_time'] = 300;

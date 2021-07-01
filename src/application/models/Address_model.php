@@ -16,7 +16,7 @@ class Address_Model extends CW_Model
     private $createdAt;
     private $updatedAt;
 
-    public function fetchByUserId($userId)
+    public function fetchByUserId($userId, $api = false)
     {
         $sql = <<<SQL
             SELECT *
@@ -28,7 +28,7 @@ class Address_Model extends CW_Model
         $formatedResults = [];
 
         foreach ($query->result() as $row) {
-            array_push($formatedResults, $this->toResponse($row));
+            array_push($formatedResults, !$api ? $this->toResponse($row) : $this->toAPIResponse($row));
         }
 
         return $formatedResults;
@@ -155,6 +155,22 @@ class Address_Model extends CW_Model
         $response->active = $data->active;
         $response->createdAt = $data->createdAt;
         $response->updatedAt = $data->updatedAt;
+
+        return $response;
+    }
+
+    public function toAPIResponse($data)
+    {
+        $response = new stdClass();
+        $response->id = $data->id;
+        $response->zipCode = $data->zipCode;
+        $response->address = $data->address;
+        $response->number = $data->number;
+        $response->complement = $data->complement;
+        $response->neighborhood = $data->neighborhood;
+        $response->city = $data->city;
+        $response->state = $data->state;
+        $response->country = $data->country;
 
         return $response;
     }
