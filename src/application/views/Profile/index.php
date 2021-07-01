@@ -51,7 +51,7 @@
             </div>
             <div class="form-group">
                 <label for="formInpPhone">Telefone*</label>
-                <input type="text" name="phone" value="<?= $user->phone ?>" class="form-control form-control-border" id="formInpPhone" placeholder="Telefone" required>
+                <input type="text" name="phone" value="<?= $user->phone ?>" class="form-control form-control-border input-mask-phone" id="formInpPhone" placeholder="Telefone" required>
             </div>
             <?php if ($user->isAdmin === '1') : ?>
                 <div class="row">
@@ -143,7 +143,7 @@
                         <div class="tab-pane active" id="tab_1">
                             <div class="form-group">
                                 <label for="formInpFirstZipCode">CEP*</label>
-                                <input type="text" name="firstZipCode" value="<?= isset($firstAddress) ? $firstAddress->zipCode : '' ?>" class="form-control form-control-border" id="formInpFirstZipCode" placeholder="CEP" required>
+                                <input type="text" name="firstZipCode" value="<?= isset($firstAddress) ? $firstAddress->zipCode : '' ?>" class="form-control form-control-border input-mask-zipcode" id="formInpFirstZipCode" placeholder="CEP" required>
                             </div>
                             <div class="row">
                                 <div class="col-8">
@@ -203,7 +203,7 @@
                             <div class="tab-pane" id="tab_2">
                                 <div class="form-group">
                                     <label for="formInpSecondZipCode">CEP*</label>
-                                    <input type="text" name="secondZipCode" value="<?= isset($secondAddress) ? $secondAddress->zipCode : '' ?>" class="form-control form-control-border" id="formInpSecondZipCode" placeholder="CEP" required>
+                                    <input type="text" name="secondZipCode" value="<?= isset($secondAddress) ? $secondAddress->zipCode : '' ?>" class="form-control form-control-border input-mask-zipcode" id="formInpSecondZipCode" placeholder="CEP" required>
                                 </div>
                                 <div class="row">
                                     <div class="col-8">

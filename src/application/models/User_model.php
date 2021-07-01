@@ -236,7 +236,7 @@ class User_Model extends CW_Model
     public function prepare($operation, $data)
     {
         $this->fullName = trim($data->fullName);
-        $this->phone = trim($data->phone);
+        $this->phone = trim(str_replace(['(', ')', ' ', '-'], '', $data->phone));
         $this->isAdmin = $data->isAdmin ? 1 : 0;
         $this->hasSystemAccess = $data->hasSystemAccess ? 1 : 0;
         $this->isProvider = $data->isProvider ? 1 : 0;

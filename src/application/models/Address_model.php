@@ -118,7 +118,7 @@ class Address_Model extends CW_Model
 
     public function prepare($operation, $data)
     {
-        $this->zipCode = trim($data->zipCode);
+        $this->zipCode = trim(str_replace(['.', '-'], '', $data->zipCode));
         $this->address = trim($data->address);
         $this->number = trim($data->number);
         $this->complement = trim($data->complement);

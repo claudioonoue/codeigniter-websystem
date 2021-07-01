@@ -166,10 +166,13 @@ scratch. This page gets rid of all links and provides the needed markup only.
     <script src="/plugins/jquery-validation/jquery.validate.min.js"></script>
     <!-- Select2 -->
     <script src="/plugins/select2/js/select2.full.min.js"></script>
+    <!-- InputMask -->
+    <script src="/plugins/inputmask/jquery.inputmask.min.js"></script>
     <!-- Custom JS -->
     <script src="/assets/js/config/jsgrid.js"></script>
     <script src="/assets/js/config/jqvalidate.js"></script>
     <script src="/assets/js/config/select2.js"></script>
+    <script src="/assets/js/config/inputmask.js"></script>
     <?php if (isset($js)) : ?>
         <?php foreach ($js as $file) : ?>
             <script src="<?= $file ?>"></script>

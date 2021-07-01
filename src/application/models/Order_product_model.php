@@ -89,7 +89,7 @@ class Order_Product_Model extends CW_Model
     public function prepare($operation, $data)
     {
         $this->quantity = intval($data->quantity);
-        $this->unitPrice = intval($data->unitPrice);
+        $this->unitPrice = str_replace(['R', '$', ',', ' '], '', $data->unitPrice) * 100;
         $now = new DateTime();
         if ($operation === 'insert') {
             $this->orderId = $data->orderId;
@@ -108,7 +108,7 @@ class Order_Product_Model extends CW_Model
         $response->orderId = $data->orderId;
         $response->productId = $data->productId;
         $response->quantity = $data->quantity;
-        $response->unitPrice = $data->unitPrice;
+        $response->unitPrice = number_format($data->unitPrice / 100, 2);
         $response->createdAt = $data->createdAt;
         $response->updatedAt = $data->updatedAt;
 

@@ -102,6 +102,7 @@ function addProduct() {
             required: true
         })
     })
+    runInputMask()
 }
 
 function createFormGroup() {
@@ -155,7 +156,7 @@ function createValueInput(i) {
     input.name = `inpValue-${i}`
     input.id = `inpValue-${i}`
     input.type = 'text'
-    input.className = 'form-control form-control-border product-input'
+    input.className = 'form-control form-control-border input-mask-currency product-input'
     input.placeholder = 'Valor'
     input.required = true
 
@@ -175,7 +176,7 @@ function createQuantityInput(i) {
     input.name = `inpQuantity-${i}`
     input.id = `inpQuantity-${i}`
     input.type = 'text'
-    input.className = 'form-control form-control-border product-input'
+    input.className = 'form-control form-control-border input-mask-quantity product-input'
     input.placeholder = 'Quantidade'
     input.required = true
 

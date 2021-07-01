@@ -64,13 +64,13 @@
                     <div class="col">
                         <div class="form-group">
                             <label>Valor*</label>
-                            <input type="text" value="<?= $orderProduct->unitPrice ?>" name="inpValue-<?= $sequence ?>" id="inpValue-<?= $sequence ?>" class="form-control form-control-border product-input" placeholder="Valor" required <?= $order->finished !== '0' ? 'disabled' : '' ?>>
+                            <input type="text" value="<?= $orderProduct->unitPrice ?>" name="inpValue-<?= $sequence ?>" id="inpValue-<?= $sequence ?>" class="form-control form-control-border input-mask-currency product-input" placeholder="Valor" required <?= $order->finished !== '0' ? 'disabled' : '' ?>>
                         </div>
                     </div>
                     <div class="col">
                         <div class="form-group">
                             <label>Quantidade*</label>
-                            <input type="text" value="<?= $orderProduct->quantity ?>" name="inpQuantity-<?= $sequence ?>" id="inpQuantity-<?= $sequence ?>" class="form-control form-control-border product-input" placeholder="Quantidade" required <?= $order->finished !== '0' ? 'disabled' : '' ?>>
+                            <input type="text" value="<?= $orderProduct->quantity ?>" name="inpQuantity-<?= $sequence ?>" id="inpQuantity-<?= $sequence ?>" class="form-control form-control-border input-mask-quantity product-input" placeholder="Quantidade" required <?= $order->finished !== '0' ? 'disabled' : '' ?>>
                         </div>
                     </div>
                     <?php if ($order->finished === '0') : ?>

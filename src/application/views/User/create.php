@@ -29,7 +29,7 @@
             </div>
             <div class="form-group">
                 <label for="formInpPhone">Telefone*</label>
-                <input type="text" name="phone" class="form-control form-control-border" id="formInpPhone" placeholder="Telefone" required>
+                <input type="text" name="phone" class="form-control form-control-border input-mask-phone" id="formInpPhone" placeholder="Telefone" required>
             </div>
             <div class="row">
                 <div class="col-6">
