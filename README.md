@@ -1,6 +1,6 @@
-# 🔥 CodeIgniter 4 Project 🔥
+# 🔥 CodeIgniter 3 Project 🔥
 
-This project was developed using the CodeIgniter 4 framework. <br /><br />
+This project was developed using the CodeIgniter 3 framework. <br /><br />
 
 **IMPORTANT**: Here you will **ONLY** find ways to run this project. If you want more specific information about the developed project and its contexts, visit: [DOC.md](./docs/DOC.md).
 
