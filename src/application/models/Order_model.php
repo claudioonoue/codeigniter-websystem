@@ -25,24 +25,52 @@ class Order_Model extends CW_Model
         return $formatedResults;
     }
 
-    public function ajaxFetch($observations, $limit, $offset)
+    public function ajaxFetch($provider, $contributor, $observations, $finished, $limit, $offset)
     {
+        $whereValues = [
+            '%' . $provider . '%',
+            '%' . $contributor . '%',
+            '%' . $observations . '%',
+        ];
+
         $sql = <<<SQL
-            SELECT *
+            SELECT 
+                o.*,
+                p.fullName AS `provider`,
+                c.fullName AS `contributor`, 
+                (
+                    SELECT count(op.id)
+                    FROM orders_products op
+                    WHERE op.orderId = o.id
+                ) AS `totalProducts`
             FROM orders o
-            WHERE o.observations LIKE ?
+            INNER JOIN users p
+            ON p.id = o.providerId
+            INNER JOIN users c
+            ON c.id = o.contributorId
+            WHERE p.fullName LIKE ?
+            AND c.fullName LIKE ?
+            AND o.observations LIKE ?
+        SQL;
+
+        if ($finished !== '') {
+            $sql .= <<<SQL
+                AND o.finished = ?
+            SQL;
+            array_push($whereValues, $finished);
+        }
+
+        $sql .= <<<SQL
             LIMIT ?
             OFFSET ?;
         SQL;
-        $query = $this->db->query($sql, [
-            '%' . $observations . '%',
-            $limit,
-            $offset
-        ]);
+        array_push($whereValues, $limit, $offset);
+
+        $query = $this->db->query($sql, $whereValues);
         $formatedResults = [];
 
         foreach ($query->result() as $row) {
-            array_push($formatedResults, $this->toResponse($row));
+            array_push($formatedResults, $row);
         }
 
         return $formatedResults;

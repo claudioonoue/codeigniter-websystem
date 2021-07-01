@@ -20,8 +20,8 @@ function loadGrid() {
         filtering: true,
         fields: loadJSGridDefaultFields([
             { type: 'number', name: 'id', title: 'ID', align: 'center', filtering: false },
-            { type: 'number', name: 'providerId', title: 'providerID', align: 'center', filtering: false },
-            { type: 'number', name: 'contributorId', title: 'contributorID', align: 'center', filtering: false },
+            { type: 'text', name: 'provider', title: 'Fornecedor', align: 'center' },
+            { type: 'text', name: 'contributor', title: 'Colaborador', align: 'center' },
             {
                 type: 'text',
                 name: 'observations',
@@ -31,12 +31,20 @@ function loadGrid() {
                     return text;
                 }
             },
+            { type: 'text', name: 'totalProducts', title: 'Total de Produtos', align: 'center', filtering: false },
             {
-                type: 'text',
+                type: 'select',
                 name: 'finished',
                 title: 'Finalizado',
                 align: 'center',
-                filtering: false,
+                items: [
+                    { Name: 'Selecione', Id: -1 },
+                    { Name: 'Não', Id: '0' },
+                    { Name: 'Sim', Id: '1' }
+                ],
+                selectedIndex: -1,
+                textField: 'Name',
+                valueField: 'Id',
                 itemTemplate: function (value) {
                     var iconElement = document.createElement('i');
                     iconElement.className = `icon fas fa-${value === '1' ? 'check-circle text-success' : 'times-circle text-danger'}`;
