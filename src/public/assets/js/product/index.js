@@ -19,7 +19,7 @@ function loadGrid() {
     var gridConfig = loadJSGridDefaultConfig({
         filtering: true,
         fields: loadJSGridDefaultFields([
-            { type: 'number', name: 'id', title: 'ID', align: 'center', filtering: false },
+            { type: 'number', name: 'id', title: 'ID', align: 'center', filtering: false, visible: false },
             { type: 'text', name: 'name', title: 'Nome' },
             {
                 type: 'text',
