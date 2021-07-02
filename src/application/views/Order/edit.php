@@ -63,8 +63,8 @@
                     </div>
                     <div class="col">
                         <div class="form-group">
-                            <label>Valor*</label>
-                            <input type="text" value="<?= $orderProduct->unitPrice ?>" name="inpValue-<?= $sequence ?>" id="inpValue-<?= $sequence ?>" class="form-control form-control-border input-mask-currency product-input" placeholder="Valor" required <?= $order->finished !== '0' ? 'disabled' : '' ?>>
+                            <label>Valor Unit.*</label>
+                            <input type="text" value="<?= $orderProduct->unitPrice ?>" name="inpValue-<?= $sequence ?>" id="inpValue-<?= $sequence ?>" class="form-control form-control-border input-mask-currency product-input" placeholder="Valor Unit." required <?= $order->finished !== '0' ? 'disabled' : '' ?>>
                         </div>
                     </div>
                     <div class="col">

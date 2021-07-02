@@ -115,7 +115,7 @@ function createProductSelect(options, i) {
     let divFormGroup = createFormGroup()
 
     let label = document.createElement('label')
-    label.innerHTML = 'Produto'
+    label.innerHTML = 'Produto*'
     divFormGroup.appendChild(label)
 
     let select = document.createElement('select')
@@ -149,7 +149,7 @@ function createValueInput(i) {
     let divFormGroup = createFormGroup()
 
     let label = document.createElement('label')
-    label.innerHTML = 'Valor'
+    label.innerHTML = 'Valor Unit.*'
     divFormGroup.appendChild(label)
 
     let input = document.createElement('input')
@@ -157,7 +157,7 @@ function createValueInput(i) {
     input.id = `inpValue-${i}`
     input.type = 'text'
     input.className = 'form-control form-control-border input-mask-currency product-input'
-    input.placeholder = 'Valor'
+    input.placeholder = 'Valor Unit.'
     input.required = true
 
     divFormGroup.appendChild(input)
@@ -169,7 +169,7 @@ function createQuantityInput(i) {
     let divFormGroup = createFormGroup()
 
     let label = document.createElement('label')
-    label.innerHTML = 'Quantidade'
+    label.innerHTML = 'Quantidade*'
     divFormGroup.appendChild(label)
 
     let input = document.createElement('input')

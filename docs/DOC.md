@@ -187,7 +187,9 @@ visto que um usuário de tipo Fornecedor não é um administrador e nem deve pos
 
 5 - Um Administrador PODE editar informações de QUALQUER usuário.
 
-6 - NÃO é possível excluir um usuário!
+6 - Um usuário DESATIVADO NÃO terá acesso ao sistema.
+
+7 - NÃO é possível excluir um usuário!
 
 Recomendo um teste completo nas telas `/user/create`, `/user/edit/:ID` e `/profile` para melhor entendimento do que foi explicado até agora.
 
@@ -226,7 +228,7 @@ A API conta com os seguintes recursos:
 | GET | /api/v2/order/list_finished | Método para listagem de Pedidos Finalizados. |
 
 ### Observações:
-- Como mencionado em outras seções, somente Colaboradores e Administradores poderão ter acesso a API.
+- As regras de acesso à API são exatamente as mesmas regras para o Portal. 
 
 ## POST /api/v2/auth/create_session
 

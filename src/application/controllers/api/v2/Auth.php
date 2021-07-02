@@ -37,6 +37,11 @@ class Auth extends CW_API_V2_Controller
                 return;
             }
 
+            if ($user->active === '0' || $user->hasSystemAccess === '0' || $user->isProvider === '1') {
+                $this->toJSONError('Usuário não autorizado', 401);
+                return;
+            }
+
             $exp = new DateTime();
             $exp->setTimestamp($exp->getTimestamp() + $this->config->item('jwt_exp_time'));
 
