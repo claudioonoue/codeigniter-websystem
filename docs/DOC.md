@@ -6,6 +6,17 @@ Este é um projeto com o intuito de apresentar um embrião de sistema para geren
 
 É necessário executar um script SQL que está dentro da pasta `docs` chamado `default.sql` que servirá como base para criação do DB e suas tabelas.
 
+# Usuário Padrão
+
+Para fins de testes, o sistema automaticamente cria um usuário padrão CASO não exista nenhum no database.
+
+```JSON
+{
+    "email": "admin@admin.com",
+    "senha": "123456"
+}
+```
+
 # Portal: Recursos
 
 O portal conta com os seguintes recursos:
@@ -25,11 +36,90 @@ O portal conta com os seguintes recursos:
 | /order/create | Tela de criação de pedido. | Não |
 | /order/edit/(:id) | Tela de edição de pedido. | Não |
 
-Mais abaixo será apresentada cada uma das telas.
+## Barras de Navegação
 
+Explicação breve sobre as barras de navegação presentes na interface:
+- Esquerda: A barra de navegação esquerda conta com botões para acesso à Página principal, à tela de Perfil do usuário logado, à tela de listagem de Usuários, à tela de listagem de Produtos e à tela de listagem de Pedidos. Além disso, conta com um campo para buscar alguns itens contidos nela. 
+- Superior: A barra de navegação superior possui um botão para maximizar a interface do sistema e um botão para exibir o Menu Lateral.
+- Menu Lateral: O Menu Lateral possui um botão para acessar a tela de Perfil do usuário logado e um botão para encerrar a sessão do usuário logado.
 
-## "/" - Página principal
+## / - Página principal
 
+Possuem algumas informações a respeito dos Pedidos e Produtos.
+
+## /auth/login - Tela de login
+
+Tela para realizar login ao sistema.
+
+## /profile - Tela de edição de perfil do usuário logado
+
+Tela para editar informações de perfil do usuário logado.
+
+## /user - Tela de listagem de usuários
+
+Tela com uma tabela para listagem de usuários existentes no sistema.
+
+A tabela possui filtros por coluna para uma maior flexibilidade ao filtrar dados.
+
+Para visualizar/editar um registro, basta clicar na linha desejada.
+
+Um botão encontra-se na parte superior direita da tela para acessar a tela de criação de usuários.
+
+## /user/create - Tela de criação de usuário
+
+Tela para criação de usuário.
+
+Consulte a seção `Portal: Regras de Negócio - Usuários` para compreender melhor seu funcionamento.
+
+## /user/edit/(:id) - Tela de edição de usuário
+
+Tela para edição de usuário.
+
+Consulte a seção `Portal: Regras de Negócio - Usuários` para compreender melhor seu funcionamento.
+
+## /product - Tela de listagem de produtos
+
+Tela com uma tabela para listagem de produtos existentes no sistema.
+
+A tabela possui filtros por coluna para uma maior flexibilidade ao filtrar dados.
+
+Para visualizar/editar um registro, basta clicar na linha desejada.
+
+Um botão encontra-se na parte superior direita da tela para acessar a tela de criação de produtos.
+
+## /product/create - Tela de criação de produto
+
+Tela para criação de produto.
+
+Consulte a seção `Portal: Regras de Negócio - Produtos` para compreender melhor seu funcionamento.
+
+## /product/edit/(:id) - Tela de edição de produto
+
+Tela para edição de produto.
+
+Consulte a seção `Portal: Regras de Negócio - Produtos` para compreender melhor seu funcionamento.
+
+## /order - Tela de listagem de pedidos
+
+Tela com uma tabela para listagem de pedidos existentes no sistema.
+
+A tabela possui filtros por coluna para uma maior flexibilidade ao filtrar dados.
+
+Para visualizar/editar um registro, basta clicar na linha desejada.
+
+Um botão encontra-se na parte superior direita da tela para acessar a tela de criação de pedidos.
+
+## /order/create - Tela de criação de pedido
+
+Tela para criação de pedido.
+
+Consulte a seção `Portal: Regras de Negócio - Pedidos` para compreender melhor seu funcionamento.
+
+## /order/edit/(:id) - Tela de edição de pedido
+
+Tela para edição de pedido.
+
+Consulte a seção `Portal: Regras de Negócio - Pedidos` para compreender melhor seu funcionamento.
 
 # Portal: Regras de Negócio
 
@@ -95,7 +185,9 @@ visto que um usuário de tipo Fornecedor não é um administrador e nem deve pos
 
 4 - A tela de edição de perfil (`/profile`) possui as mesmas regras da tela de edição de usuário (`/user/edit/:ID`), com uma única diferença: o usuário que está sendo editado é o usuário que está logado.
 
-5 - NÃO é possível excluir um usuário!
+5 - Um Administrador PODE editar informações de QUALQUER usuário.
+
+6 - NÃO é possível excluir um usuário!
 
 Recomendo um teste completo nas telas `/user/create`, `/user/edit/:ID` e `/profile` para melhor entendimento do que foi explicado até agora.
 
@@ -104,7 +196,7 @@ Recomendo um teste completo nas telas `/user/create`, `/user/edit/:ID` e `/profi
 Os produtos são uma das entidades que compõem um Pedido.
 
 As regras de negócio dos produtos são bem simples:
-- NÃO é possível editar um produto DESATIVADO: para editá-lo, ative o switch "Ativo" e envie o formulário;
+- NÃO é possível editar (`/product/edit/:ID`) um produto DESATIVADO: para editá-lo, ative o switch "Ativo" e envie o formulário;
 - NÃO é possível EXCLUIR um produto.
 
 ## Pedidos
@@ -124,18 +216,162 @@ Regras de Negócio:
 - Como mencionado anteriormente, um Pedido DEVE possuir UM ou MAIS DE UM item.
 - Ao editar um Pedido, o Colaborador NÃO será alterado! Será mantido o que foi usado para a criação do Pedido.
 
-
-
 # API: Recursos
+
+A API conta com os seguintes recursos:
 
 | Method | URI | Descrição |
 | --- | --- | --- |
-| GET | aircraft/list | Tela de listagem de aeronaves. |
-| GET | aircraft/create | Tela de criação de aeronaves. |
-| POST | aircraft/create | POST de criação de aeronaves. |
-| GET | aircraft/edit/(:num) | Tela de edição de aeronaves. |
-| POST | aircraft/edit/(:num) | POST de edição de aeronaves. |
-| GET | aircraft/delete/(:num) | Exclusão de aeronaves. |
+| POST | /api/v2/auth/create_session | Método para autenticação de usuário. |
+| GET | /api/v2/order/list_finished | Método para listagem de Pedidos Finalizados. |
+
+### Observações:
+- Como mencionado em outras seções, somente Colaboradores e Administradores poderão ter acesso a API.
+
+## POST /api/v2/auth/create_session
+
+Método para autenticação de usuário.
+
+Request (EXEMPLO):
+```JSON
+{
+    "Headers": {
+        "Content-Type": "multipart/form-data"
+    },
+    "Body": {
+        "email": "email@email.com",
+        "password": "senha"
+    }
+}
+```
+
+Response (EXEMPLO):
+```JSON
+{
+    "token": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJpZCI6IjEiLCJlbWFpbCI6ImFkbWluQGFkbWluLmNvbSIsImV4cCI6MTYyNTIwNjEzNn0.gbZC8vfjAnAJSW420aHfVG6EXbQFHdlNwuZsckgfaUw"
+}
+```
+
+### Observações:
+- Para realizar a autenticação, poderá ser utilizado o email e senha de usuários Colaboradores e Administradores.
+
+## GET /api/v2/order/list_finished
+
+Método para listagem de Pedidos Finalizados.
+
+Request (EXEMPLO):
+```JSON
+{
+    "Headers": {
+        "Authorization": "Bearer TOKEN_GERADA_NA_REQUEST_DE_AUTENTICAÇÃO"
+    },
+    "Query Params": {
+        "limit": 10, // Máximo de pedidos que serão retornados por página.
+        "page": 1 // Página atual.
+    }
+}
+```
+
+Response (EXEMPLO):
+```JSON
+[
+    {
+        "order": { // Dados do Pedido.
+            "id": "2",
+            "providerId": "2",
+            "contributorId": "1",
+            "observations": "",
+            "createdAt": "2021-06-29 05:32:40",
+            "updatedAt": "2021-06-30 05:59:40"
+        },
+        "products": [ // Array com os Items do Pedido.
+            {
+                "productId": "5",
+                "name": "Longos - Chicken Caeser Salad",
+                "description": "Darter, african",
+                "quantity": "321",
+                "unitPrice": "321111"
+            }
+        ],
+        "provider": { // Dados do Fornecedor.
+            "id": "2",
+            "email": "batat@batata.com",
+            "fullName": "Batata",
+            "phone": "11912345678",
+            "addresses": [
+                {
+                    "id": "47",
+                    "zipCode": "07032170",
+                    "address": "Rua Décio Antônio Ferroni",
+                    "number": "88",
+                    "complement": "Casa",
+                    "neighborhood": "Vila São Luis",
+                    "city": "Guarulhos",
+                    "state": "SP",
+                    "country": "brasil"
+                },
+                {
+                    "id": "48",
+                    "zipCode": "74366225",
+                    "address": "Avenida Parque",
+                    "number": "888",
+                    "complement": "G",
+                    "neighborhood": "Residencial Aquários II",
+                    "city": "Goiânia",
+                    "state": "GO",
+                    "country": "brasil"
+                }
+            ]
+        },
+        "contributor": { // Dados do Colaborador que criou o Pedido.
+            "id": "1",
+            "email": "admin@admin.com",
+            "fullName": "Administrador",
+            "phone": "11111111251",
+            "addresses": []
+        }
+    },
+    {
+        "order": {
+            "id": "7",
+            "providerId": "3",
+            "contributorId": "1",
+            "observations": "AAAAAAAAADASDASDASDAS",
+            "createdAt": "2021-06-29 05:39:40",
+            "updatedAt": "2021-06-30 05:53:28"
+        },
+        "products": [
+            {
+                "productId": "5",
+                "name": "Longos - Chicken Caeser Salad",
+                "description": "Darter, african",
+                "quantity": "321",
+                "unitPrice": "321111"
+            }
+        ],
+        "provider": {
+            "id": "3",
+            "email": "teste@teste.com",
+            "fullName": "Teste",
+            "phone": "11912345678",
+            "addresses": []
+        },
+        "contributor": {
+            "id": "1",
+            "email": "admin@admin.com",
+            "fullName": "Administrador",
+            "phone": "11111111251",
+            "addresses": []
+        }
+    }
+]
+```
+
+### Observações gerais da API:
+
+1 - Para maiores informações, consulte a documentação POSTMAN `/docs/CodeIgniter3-WS-API.postman_collection.json`.
+
+2 - O arquivo `/docs/CI3-WS-API-LOCAL.postman_environment.json` possuem variáveis de ambiente que são úteis no POSTMAN.
 
 <br />
 
